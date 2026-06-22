@@ -730,8 +730,8 @@
     <div class="welcome-subtitle" id="wc-subtitle">Simulateur d'entraînement</div>
 
     <div class="welcome-lang-bar">
-      <button class="welcome-lang-btn active" id="wlb-fr" onclick="setWelcomeLang('fr')">🇫🇷 Français</button>
-      <button class="welcome-lang-btn" id="wlb-es" onclick="setWelcomeLang('es')">🇪🇸 Español</button>
+      <button class="welcome-lang-btn" id="wlb-fr" onclick="setWelcomeLang('fr')">🇫🇷 Français</button>
+      <button class="welcome-lang-btn active" id="wlb-es" onclick="setWelcomeLang('es')">🇪🇸 Español</button>
       <button class="welcome-lang-btn" id="wlb-val" onclick="setWelcomeLang('val')">🏳️ Valencià</button>
     </div>
 
@@ -762,7 +762,7 @@
           <label class="ai-level-label" for="lang-select" id="lang-label-el">Langue :</label>
           <select id="lang-select" class="ai-lvl-btn" onchange="setLang(this.value)">
             <option value="fr">🇫🇷 Français</option>
-            <option value="es">🇪🇸 Español</option>
+            <option value="es" selected>🇪🇸 Español</option>
             <option value="val">🏳️ Valencià</option>
           </select>
         </div>
@@ -1082,7 +1082,7 @@ function getAiParams() {
 // Les NOMS des cartes restent toujours en valencien (pour jouer en vrai avec
 // des amis valenciens/catalans). Seules les descriptions d'effets et les textes
 // d'interface sont traduits.
-let lang = "fr"; // "fr" | "es" | "val"
+let lang = "es"; // "fr" | "es" | "val"
 
 const TRANSLATIONS = {
   // --- Interface principale ---
@@ -1191,15 +1191,6 @@ function t(key, vars) {
   return str;
 }
 
-function setLang(l) {
-  lang = l;
-  // Met à jour le sélecteur
-  const sel = document.getElementById("lang-select");
-  if (sel) sel.value = l;
-  render();
-}
-
-
 function setAiLevel(level) {
   aiLevel = level;
   const sel = document.getElementById("level-select");
@@ -1223,7 +1214,6 @@ function setLang(l) {
   if (themeLabel) themeLabel.textContent = t("themeLabel");
   const fontLabel = document.getElementById("font-label-el");
   if (fontLabel) fontLabel.textContent = t("fontLabel");
-  // Traduire les options du sélecteur de thème
   const optDark = document.getElementById("opt-dark");
   if (optDark) optDark.textContent = t("themeDark");
   const optLight = document.getElementById("opt-light");
@@ -1238,6 +1228,8 @@ function setLang(l) {
   if (h1) h1.textContent = t("title");
   const sub = document.querySelector(".subtitle");
   if (sub) sub.textContent = t("subtitle");
+  // Mettre aussi à jour la page de garde si elle est encore visible
+  setWelcomeLang(l);
   render();
 }
 
