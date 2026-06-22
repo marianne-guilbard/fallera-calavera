@@ -960,11 +960,11 @@ function confirmMulligan() {
   for (let i = 0; i < n; i++) drawCardFor("me");
 
   if (n === 0) {
-    logMsg(`"El jugador de Petrer" : tu choisis de ne défausser aucune carte (0 carte piochée).`, "you");
-    setGuide("Aucune défausse", `Tu n'as sélectionné aucune carte — c'est valide ("jusqu'à 5"), mais tu ne piochés rien non plus dans ce cas.`);
+    logMsg(`"El jugador de Petrer" : ${{"fr":"tu choisis de ne défausser aucune carte (0 carte piochée).","es":"eliges no descartar ninguna carta (0 cartas robadas).","val":"tries no descartar cap carta (0 cartes robades)."}[lang]}`, "you");
+    setGuide(t("gAucuneDefausse"), t("gAucuneDefausseT"));
   } else {
-    logMsg(`"El jugador de Petrer" : tu défausses ${n} carte(s) choisie(s) (${discarded.join(", ")}) et en piochés autant.`, "you");
-    setGuide("Renouvellement de main", `Tu as choisi toi-même quelles cartes remplacer. Les éventuels trésors piochés iront directement sur ton mostrador.`);
+    logMsg(`"El jugador de Petrer" : ${{"fr":`tu défausses ${n} carte(s) (${discarded.join(", ")}) et en piochés autant.`,"es":`descartas ${n} carta(s) (${discarded.join(", ")}) y robas otras tantas.`,"val":`descartes ${n} carta/cartes (${discarded.join(", ")}) i en robes tantes.`}[lang]}`, "you");
+    setGuide(t("gRenouvellement"), t("gRenouvellementT"));
   }
 
   state.pendingMulligan = null;
@@ -982,12 +982,12 @@ function chooseCassallaCard(cemeteryIdx) {
 
   if (recovered.type === "treasure") {
     state.myCounter.push(recovered);
-    logMsg(`"Cassalla miraculosa" : tu récupères "${recovered.n}" depuis le cimetière — c'est un trésor, il part directement sur ton mostrador.`, "you");
-    setGuide("Résurrection", `"${recovered.n}" rejoint ton mostrador, visible de l'adversaire comme tout trésor.`);
+    logMsg(`"Cassalla miraculosa" : ${{"fr":`tu récupères "${recovered.n}" — trésor, il part sur ton mostrador.`,"es":`recuperas "${recovered.n}" — tesoro, va a tu mostrador.`,"val":`recuperes "${recovered.n}" — tresor, va al teu mostrador.`}[lang]}`, "you");
+    setGuide(t("gResurrection"), `"${recovered.n}" ${t("gResurrMostrador")}`);
   } else {
     state.myHand.push(recovered);
-    logMsg(`"Cassalla miraculosa" : tu récupères "${recovered.n}" depuis le cimetière, elle rejoint ta main.`, "you");
-    setGuide("Résurrection", `"${recovered.n}" est de retour dans ta main, prête à être rejouée.`);
+    logMsg(`"Cassalla miraculosa" : ${{"fr":`tu récupères "${recovered.n}", elle rejoint ta main.`,"es":`recuperas "${recovered.n}", se une a tu mano.`,"val":`recuperes "${recovered.n}", s'uneix a la teua mà.`}[lang]}`, "you");
+    setGuide(t("gResurrection"), `"${recovered.n}" ${t("gResurrMain")}`);
   }
 
   state.pendingCassalla = null;
@@ -1002,12 +1002,12 @@ function chooseDigCard(poolIdx) {
 
   if (kept.type === "treasure") {
     state.myCounter.push(kept);
-    logMsg(`"Donyet escodrinyador" : tu gardes "${kept.n}" parmi les 10 — c'est un trésor, il part sur ton mostrador.`, "you");
-    setGuide("Fouille réussie", `"${kept.n}" rejoint ton mostrador. Les 9 autres cartes sont remélangées dans la pioche.`);
+    logMsg(`"Donyet escodrinyador" : ${{"fr":`tu gardes "${kept.n}" — trésor, il part sur ton mostrador.`,"es":`guardas "${kept.n}" — tesoro, va a tu mostrador.`,"val":`guardes "${kept.n}" — tresor, va al teu mostrador.`}[lang]}`, "you");
+    setGuide(t("gFouilleReussie"), `"${kept.n}" ${t("gFouilleMostrador")}`);
   } else {
     state.myHand.push(kept);
-    logMsg(`"Donyet escodrinyador" : tu gardes "${kept.n}" parmi les 10, elle rejoint ta main.`, "you");
-    setGuide("Fouille réussie", `"${kept.n}" est en main. Les 9 autres cartes sont remélangées dans la pioche.`);
+    logMsg(`"Donyet escodrinyador" : ${{"fr":`tu gardes "${kept.n}", elle rejoint ta main.`,"es":`guardas "${kept.n}", se une a tu mano.`,"val":`guardes "${kept.n}", s'uneix a la teua mà.`}[lang]}`, "you");
+    setGuide(t("gFouilleReussie"), `"${kept.n}" ${t("gFouilleMain")}`);
   }
 
   state.pendingDig = null;
@@ -1180,6 +1180,110 @@ const TRANSLATIONS = {
   catBattleCard:  { fr: "Carte de bataille", es: "Carta de batalla", val: "Carta de batalla" },
   catSpecialCard: { fr: "Carte spéciale", es: "Carta especial", val: "Carta especial" },
   catSpecialMini: { fr: "Spéciale niv.{N}", es: "Especial niv.{N}", val: "Especial niv.{N}" },
+  gAlmoina:            { fr: "Almoina", es: "Almoina", val: "Almoina" },
+  gAlmoinaT:           { fr: "Quand aucune carte ne te convient, piocher sans jouer est une action valide. C'est l'une des SEULES façons de piocher en dehors d'un effet de carte.", es: "Cuando ninguna carta te conviene, robar sin jugar es válido. Es una de las ÚNICAS formas de robar fuera de un efecto de carta.", val: "Quan cap carta et convé, robar sense jugar és vàlid. És una de les ÚNIQUES formes de robar fora d'un efecte de carta." },
+  gAlmoinaT2:          { fr: "Quand aucune carte ne te convient, piocher sans jouer est valide. Ici tu as pioché un trésor : il est posé automatiquement sur ton mostrador, visible de l'adversaire.", es: "Cuando ninguna carta te conviene, robar sin jugar es válido. Aquí robaste un tesoro : se coloca automáticamente en tu mostrador, visible para el adversario.", val: "Quan cap carta et convé, robar sense jugar és vàlid. Ací has robat un tresor : es col·loca automàticament al teu mostrador, visible per a l'adversari." },
+  gPrepBataille:       { fr: "Préparation de la bataille", es: "Preparación de la batalla", val: "Preparació de la batalla" },
+  gPrepBatailleT:      { fr: "Carte posée face cachée. Avant la révélation, tu peux engager une carte spéciale de combat (Masclet, Espill lluent, Aigua de València), ou lancer directement la résolution.", es: "Carta boca abajo. Antes de la revelación puedes jugar una carta especial (Masclet, Espill lluent, Aigua de València), o resolver directamente.", val: "Carta cara avall. Abans de la revelació pots jugar una carta especial (Masclet, Espill lluent, Aigua de València), o resoldre directament." },
+  gChoisisTarget:      { fr: "Choisis ta cible", es: "Elige tu objetivo", val: "Tria el teu objectiu" },
+  gChoisisTargetT:     { fr: "Tu attaques posée face cachée. Choisis le trésor adverse que tu vises, puis confirme.", es: "Atacas boca abajo. Elige el tesoro adversario que apuntas, luego confirma.", val: "Atacs cara avall. Tria el tresor adversari que apuntes, després confirma." },
+  gPasCible:           { fr: "Pas de cible", es: "Sin objetivo", val: "Sense objectiu" },
+  gPasCibleT:          { fr: "L'adversaire n'a encore aucun trésor visible. Choisis une autre action en attendant.", es: "El adversario aún no tiene tesoros visibles. Elige otra acción mientras tanto.", val: "L'adversari encara no té tresors visibles. Tria una altra acció mentrestant." },
+  gVictoireSansCombat: { fr: "Victoire sans combat", es: "Victoria sin combate", val: "Victòria sense combat" },
+  gVictoireSansCombatT:{ fr: "Quand le défenseur ne présente aucune carte, l'attaquant gagne directement.", es: "Cuando el defensor no presenta ninguna carta, el atacante gana directamente.", val: "Quan el defensor no presenta cap carta, l'atacant guanya directament." },
+  gVictoireBataille:   { fr: "Victoire en bataille", es: "Victoria en batalla", val: "Victòria en batalla" },
+  gVictoireBatailleT:  { fr: "Ton attaque était strictement supérieure à la défense : le trésor rejoint ton mostrador.", es: "Tu ataque era estrictamente superior a la defensa : el tesoro se une a tu mostrador.", val: "El teu atac era estrictament superior a la defensa : el tresor s'uneix al teu mostrador." },
+  gBataillePerdue:     { fr: "Bataille perdue", es: "Batalla perdida", val: "Batalla perduda" },
+  gBataillePerdueTxt:  { fr: "Ton attaque n'était pas supérieure à la défense. Les deux cartes partent au cimetière.", es: "Tu ataque no era superior a la defensa. Ambas cartas van al cementerio.", val: "El teu atac no era superior a la defensa. Ambdues cartes van al cementeri." },
+  gBataillePerdueEgal: { fr: "Ton attaque était égale à la défense : à égalité, c'est le défenseur qui l'emporte.", es: "Tu ataque era igual a la defensa : en empate, gana el defensor.", val: "El teu atac era igual a la defensa : en empat, guanya el defensor." },
+  gDefenseInsufTxt:    { fr: "L'attaque adverse était supérieure à ta défense. Tu perds ce trésor.", es: "El ataque adversario era superior a tu defensa. Pierdes este tesoro.", val: "L'atac adversari era superior a la teua defensa. Perds este tresor." },
+  gDefenseReussieTxt:  { fr: "Ta défense était égale ou supérieure à l'attaque adverse. Le trésor reste sur ton mostrador.", es: "Tu defensa era igual o superior al ataque adversario. El tesoro permanece en tu mostrador.", val: "La teua defensa era igual o superior a l'atac adversari. El tresor roman al teu mostrador." },
+  gBatailleMoma:       { fr: "Bataille perdue (La Moma)", es: "Batalla perdida (La Moma)", val: "Batalla perduda (La Moma)" },
+  gBatailleMomaT:      { fr: "La Moma copie les points adverses : l'égalité est automatique, et le défenseur gagne toujours en cas d'égalité.", es: "La Moma copia los puntos adversarios : el empate es automático, y el defensor siempre gana en empate.", val: "La Moma copia els punts adversaris : l'empat és automàtic, i el defensor sempre guanya en empat." },
+  gBatailleAnnulee:    { fr: "Bataille annulée", es: "Batalla cancelada", val: "Batalla cancel·lada" },
+  gBatailleAnnuleeT:   { fr: "Pas de souci, choisis une autre action. Si tu avais déjà engagé une carte spéciale, son effet reste appliqué.", es: "Sin problema, elige otra acción. Si ya jugaste una carta especial, su efecto sigue aplicado.", val: "Cap problema, tria una altra acció. Si ja jugares una carta especial, el seu efecte segueix aplicat." },
+  gDefenseInsuf:       { fr: "Défense insuffisante", es: "Defensa insuficiente", val: "Defensa insuficient" },
+  gDefenseReussie:     { fr: "Défense réussie !", es: "¡Defensa exitosa!", val: "Defensa reeixida!" },
+  gPasDefense:         { fr: "Pas de défense", es: "Sin defensa", val: "Sense defensa" },
+  gPasDefenseT:        { fr: "Tu as préféré ne pas risquer de carte de bataille pour ce trésor.", es: "Preferiste no arriesgar una carta de batalla por este tesoro.", val: "Has preferit no arriscar una carta de batalla per este tresor." },
+  gAdversaireAttaque:  { fr: "L'adversaire t'attaque !", es: "¡El adversario te ataca!", val: "L'adversari t'ataca!" },
+  gAdversaireCible:    { fr: "L'adversaire te cible avec une carte spéciale !", es: "¡El adversario te apunta con una carta especial!", val: "L'adversari t'apunta amb una carta especial!" },
+  gTourAdversaire:     { fr: "Tour de l'adversaire", es: "Turno del adversario", val: "Torn de l'adversari" },
+  gEchange:            { fr: "Échange", es: "Intercambio", val: "Intercanvi" },
+  gEchangeT:           { fr: "Cette carte te permet d'échanger un trésor avec l'adversaire sans bataille.", es: "Esta carta te permite intercambiar un tesoro con el adversario sin batalla.", val: "Esta carta et permet intercanviar un tresor amb l'adversari sense batalla." },
+  gCarteSpeciale:      { fr: "Carte spéciale jouée", es: "Carta especial jugada", val: "Carta especial jugada" },
+  gRejoue:             { fr: "Rejoue !", es: "¡Vuelve a jugar!", val: "Torna a jugar!" },
+  gRejoueT:            { fr: "Cette carte te donne des actions supplémentaires. Joue ta prochaine action normalement.", es: "Esta carta te da acciones adicionales. Juega tu próxima acción normalmente.", val: "Esta carta et dona accions addicionals. Juga la teua pròxima acció normalment." },
+  gTresorVendu:        { fr: "Trésor vendu", es: "Tesoro vendido", val: "Tresor venut" },
+  gTresorVenduT:       { fr: "part au cimetière, tu piochés des cartes en échange.", es: "va al cementerio, robas cartas a cambio.", val: "va al cementeri, robes cartes a canvi." },
+  gDolçaina:           { fr: "Dolçaina i tabalet — rejoue !", es: "¡Dolçaina i tabalet — vuelve a jugar!", val: "Dolçaina i tabalet — torna a jugar!" },
+  gDolçainaT:          { fr: "part au cimetière, tu piochés des cartes, et ton tour N'EST PAS terminé : choisis une nouvelle action.", es: "va al cementerio, robas cartas, y tu turno NO HA TERMINADO : elige una nueva acción.", val: "va al cementeri, robes cartes, i el teu torn NO HA ACABAT : tria una nova acció." },
+  gResurrection:       { fr: "Résurrection", es: "Resurrección", val: "Resurrecció" },
+  gResurrMostrador:    { fr: "rejoint ton mostrador, visible de l'adversaire.", es: "se une a tu mostrador, visible para el adversario.", val: "s'uneix al teu mostrador, visible per a l'adversari." },
+  gResurrMain:         { fr: "est de retour dans ta main, prête à être rejouée.", es: "está de vuelta en tu mano, lista para jugarse.", val: "torna a la teua mà, llesta per a jugar-se." },
+  gFouilleReussie:     { fr: "Fouille réussie", es: "Búsqueda exitosa", val: "Cerca reeixida" },
+  gFouilleMostrador:   { fr: "rejoint ton mostrador. Les 9 autres sont remélangées dans la pioche.", es: "se une a tu mostrador. Las otras 9 se barajan en el mazo.", val: "s'uneix al teu mostrador. Les altres 9 es barregen al mazo." },
+  gFouilleMain:        { fr: "est en main. Les 9 autres sont remélangées dans la pioche.", es: "está en mano. Las otras 9 se barajan en el mazo.", val: "és a la mà. Les altres 9 es barregen al mazo." },
+  gAucuneDefausse:     { fr: "Aucune défausse", es: "Sin descarte", val: "Sense descart" },
+  gAucuneDefausseT:    { fr: "Tu n'as sélectionné aucune carte — c'est valide, mais tu ne piochés rien non plus.", es: "No has seleccionado ninguna carta — es válido, pero tampoco robas nada.", val: "No has seleccionat cap carta — és vàlid, però tampoc robes res." },
+  gRenouvellement:     { fr: "Renouvellement de main", es: "Renovación de mano", val: "Renovació de mà" },
+  gRenouvellementT:    { fr: "Tu as choisi quelles cartes remplacer. Les trésors piochés iront sur ton mostrador.", es: "Elegiste qué cartas reemplazar. Los tesoros robados irán a tu mostrador.", val: "Has triat quines cartes reemplaçar. Els tresors robats aniran al teu mostrador." },
+  gMasclet:            { fr: "Masclet engagé", es: "Masclet jugado", val: "Masclet jugat" },
+  gMascletT:           { fr: "Tu as affaibli la main adverse avant la résolution. Tu peux lancer la bataille.", es: "Has debilitado la mano adversaria antes de la resolución. Puedes lanzar la batalla.", val: "Has debilitat la mà adversària abans de la resolució. Pots llançar la batalla." },
+  gEspill:             { fr: "Espill lluent engagé", es: "Espill lluent jugado", val: "Espill lluent jugat" },
+  gEspillAtkT:         { fr: "Les valeurs ATT/DEF de ta carte d'attaque viennent d'être inversées.", es: "Los valores ATQ/DEF de tu carta de ataque acaban de invertirse.", val: "Els valors ATQ/DEF de la teua carta d'atac acaben d'invertir-se." },
+  gEspillDefT:         { fr: "Les valeurs de ta carte de défense viennent d'être inversées.", es: "Los valores de tu carta de defensa acaban de invertirse.", val: "Els valors de la teua carta de defensa acaben d'invertir-se." },
+  gAigua:              { fr: "Aigua de València engagée", es: "Aigua de València jugada", val: "Aigua de València jugada" },
+  gAiguaAtkT:          { fr: "La défense adverse perdra 1 point lors de la révélation.", es: "La defensa adversaria perderá 1 punto en la revelación.", val: "La defensa adversària perdrà 1 punt en la revelació." },
+  gAiguaDefT:          { fr: "L'attaque adverse perdra 1 point lors de la révélation.", es: "El ataque adversario perderá 1 punto en la revelación.", val: "L'atac adversari perdrà 1 punt en la revelació." },
+  gEspillChoix:        { fr: "Choisis d'abord ta défense", es: "Primero elige tu defensa", val: "Primer tria la teua defensa" },
+  gEspillChoixT:       { fr: "Sélectionne ta carte de défense avant d'engager Espill lluent.", es: "Selecciona tu carta de defensa antes de jugar Espill lluent.", val: "Selecciona la teua carta de defensa abans de jugar Espill lluent." },
+  gPaellaHors:         { fr: "Paella protectora — hors contexte", es: "Paella protectora — fuera de contexto", val: "Paella protectora — fora de context" },
+  gPaellaHorsT:        { fr: "Cette carte protège contre les SPÉCIALES, pas contre les batailles. Garde-la pour quand l'adversaire te cible avec une spéciale.", es: "Esta carta protege contra las ESPECIALES, no contra las batallas. Guárdala para cuando el adversario te apunte con una especial.", val: "Esta carta protegeix contra les ESPECIALS, no contra les batalles. Guarda-la per quan l'adversari t'apunte amb una especial." },
+  gAnnule:             { fr: "Annulé !", es: "¡Anulado!", val: "Anul·lat!" },
+  gAnnuleT:            { fr: "La Paella protectora a bloqué la carte adverse avant effet. Ton mostrador reste intact.", es: "La Paella protectora bloqueó la carta adversaria. Tu mostrador permanece intacto.", val: "La Paella protectora ha bloquejat la carta adversària. El teu mostrador roman intacte." },
+  gBloqueAdv:          { fr: "Bloqué par l'adversaire", es: "Bloqueado por el adversario", val: "Bloquejat per l'adversari" },
+  gBloqueAdvT:         { fr: "L'adversaire avait Paella protectora et a annulé ton effet.", es: "El adversario tenía Paella protectora y anuló tu efecto.", val: "L'adversari tenia Paella protectora i ha anul·lat el teu efecte." },
+  gEffetSubi:          { fr: "Effet subi", es: "Efecto sufrido", val: "Efecte sofert" },
+  gEffetSubiT:         { fr: "Tu n'avais pas de Paella protectora pour bloquer.", es: "No tenías Paella protectora para bloquear.", val: "No tenies Paella protectora per a bloquejar." },
+  gEffetSansCible:     { fr: "Effet sans cible", es: "Efecto sin objetivo", val: "Efecte sense objectiu" },
+  gCarteInjouable:     { fr: "Carte injouable", es: "Carta injugable", val: "Carta injugable" },
+  gProtection:         { fr: "Protection posée", es: "Protección colocada", val: "Protecció col·locada" },
+  gBlocage:            { fr: "Blocage posé", es: "Bloqueo colocado", val: "Bloqueig col·locat" },
+  gBlocageT:           { fr: "L'adversaire ne peut plus jouer de spéciales tant que ce blocage est sur son mostrador.", es: "El adversario ya no puede jugar especiales mientras este bloqueo esté en su mostrador.", val: "L'adversari ja no pot jugar especials mentre este bloqueig estiga al seu mostrador." },
+  gPacteTotal:         { fr: "Pacte total", es: "Pacto total", val: "Pacte total" },
+  gPacteTotalT:        { fr: "Échange en bloc de tous les mostradors. Risqué si tu as plus d'ingrédients !", es: "Intercambio en bloque de todos los mostradors. ¡Arriesgado si tienes más ingredientes!", val: "Intercanvi en bloc de tots els mostradors. Arriscat si tens més ingredients!" },
+  gDevastateur:        { fr: "Effet dévastateur", es: "Efecto devastador", val: "Efecte devastador" },
+  gDevastateurT:       { fr: "Carte à double tranchant : tu perds aussi tes propres trésors. À réserver quand tu es très en retard.", es: "Carta de doble filo : también pierdes tus propios tesoros. Resérvala cuando vayas muy por detrás.", val: "Carta de doble tall : també perds els teus propis tresors. Reserva-la quan vagis molt per darrere." },
+  gVictoireTotale:     { fr: "Victoire totale", es: "Victoria total", val: "Victòria total" },
+  gVictoireTotaleT:    { fr: "Almansa est l'une des cartes les plus puissantes — tu viens de rafler tout le mostrador adverse.", es: "Almansa es una de las cartas más poderosas — acabas de arrasar todo el mostrador adversario.", val: "Almansa és una de les cartes més poderoses — acabes de rasar tot el mostrador adversari." },
+  gDefaiteTotale:      { fr: "Défaite totale", es: "Derrota total", val: "Derrota total" },
+  gDefaiteTotaleT:     { fr: "En cas de défaite à Almansa, tu perds tout. À réserver pour les situations désespérées.", es: "En derrota con Almansa lo pierdes todo. Resérvala para situaciones desesperadas.", val: "En derrota amb Almansa ho perds tot. Reserva-la per a situacions desesperaes." },
+  gRiada:              { fr: "La riada", es: "La riada", val: "La riuada" },
+  gRiadaT:             { fr: "Tous les trésors changent de mains. Niveau 9 : rien ne peut l'annuler.", es: "Todos los tesoros cambian de manos. Nivel 9 : nada puede anularlo.", val: "Tots els tresors canvien de mans. Nivell 9 : res pot anul·lar-lo." },
+  gSetupContinue:      { fr: "Mise en place — continue", es: "Preparación — continúa", val: "Preparació — continua" },
+  gSetupContinueT:     { fr: "Encore {N} trésor(s) à poser avant de commencer.", es: "Todavía {N} tesoro(s) por colocar antes de empezar.", val: "Encara {N} tresor(s) per a col·locar abans de començar." },
+  gSetupFin:           { fr: "Mise en place terminée — à toi de jouer !", es: "¡Preparación terminada — es tu turno!", val: "Preparació acabada — és el teu torn!" },
+  gSetupFinT:          { fr: "Tous tes trésors de départ sont posés. Choisis UNE action : vendre, attaquer, jouer une spéciale, ou almoina.", es: "Todos tus tesoros de partida están colocados. Elige UNA acción : vender, atacar, jugar una especial, o almoina.", val: "Tots els teus tresors estan col·locats. Tria UNA acció : vendre, atacar, jugar una especial, o almoina." },
+  gCassallaChoix:      { fr: "Cassalla miraculosa — choisis ta carte", es: "Cassalla miraculosa — elige tu carta", val: "Cassalla miraculosa — tria la teua carta" },
+  gCassallaChoixT:     { fr: "Parcours le cimetière et choisis la carte à récupérer. Si c'est un trésor, il repartira sur ton mostrador.", es: "Examina el cementerio y elige la carta a recuperar. Si es un tesoro, volverá a tu mostrador.", val: "Examina el cementeri i tria la carta a recuperar. Si és un tresor, tornarà al teu mostrador." },
+  gDonyetChoix:        { fr: "Donyet escodrinyador — choisis ta carte", es: "Donyet escodrinyador — elige tu carta", val: "Donyet escodrinyador — tria la teua carta" },
+  gDonyetChoixT:       { fr: "Tu 'regardes' ces 10 cartes, choisis celle que tu gardes, les 9 autres repartent dans la pioche.", es: "Estás 'mirando' estas 10 cartas, elige la que guardas, las otras 9 vuelven al mazo.", val: "Estàs 'mirant' estes 10 cartes, tria la que guardes, les altres 9 tornen al mazo." },
+  gJugadorChoix:       { fr: "El jugador de Petrer — choisis tes défausses", es: "El jugador de Petrer — elige tus descartes", val: "El jugador de Petrer — tria els teus descarts" },
+  gJugadorChoixT:      { fr: "Sélectionne jusqu'à 5 cartes à défausser, puis confirme. Tu piocheras autant de nouvelles cartes.", es: "Selecciona hasta 5 cartas para descartar, luego confirma. Robarás tantas cartas nuevas.", val: "Selecciona fins a 5 cartes per a descartar, després confirma. Robaràs tantes cartes noves." },
+  tipMainVide:         { fr: "<b>Main vide !</b> La seule option restante est <b>almoina</b>{V}.", es: "<b>¡Mano vacía!</b> La única opción restante es <b>almoina</b>{V}.", val: "<b>Mà buida!</b> L'única opció restant és <b>almoina</b>{V}." },
+  tipMainBasse:        { fr: "<b>Main presque vide ({N} carte{S})</b> : pense à faire almoina bientôt.", es: "<b>Mano casi vacía ({N} carta{S})</b> : piensa en hacer almoina pronto.", val: "<b>Mà quasi buida ({N} carta{S})</b> : pensa a fer almoina aviat." },
+  tipMainPleine:       { fr: "<b>Main bien fournie ({N} cartes)</b> : bon moment pour jouer activement.", es: "<b>Mano bien surtida ({N} cartas)</b> : buen momento para jugar activamente.", val: "<b>Mà ben proveïda ({N} cartes)</b> : bon moment per a jugar activament." },
+  tipIngredients:      { fr: "Tu as déjà <b>{N}/5 ingrédient{S}</b> sur ton mostrador. Plus que {R} pour gagner !", es: "Ya tienes <b>{N}/5 ingrediente{S}</b> en tu mostrador. ¡Solo {R} más para ganar!", val: "Ja tens <b>{N}/5 ingredient{S}</b> al teu mostrador. Només {R} més per a guanyar!" },
+  tipCibleIng:         { fr: "L'adversaire a <b>{N} ingrédient{S} visible{S}</b> : vise-les en priorité !", es: "¡El adversario tiene <b>{N} ingrediente{S} visible{S}</b> : apúntales con prioridad!", val: "L'adversari té <b>{N} ingredient{S} visible{S}</b> : apunta'ls amb prioritat!" },
+  tipCibleNonIng:      { fr: "L'adversaire a des trésors mais aucun ingrédient : une bataille reste possible pour le gêner.", es: "El adversario tiene tesoros pero ningún ingrediente : una batalla es posible para molestarlo.", val: "L'adversari té tresors però cap ingredient : una batalla és possible per a molestar-lo." },
+  tipBatailleVide:     { fr: "Tu as <b>{N} carte{S} de bataille</b> mais l'adversaire n'a encore rien : garde-les pour quand il piochera.", es: "Tienes <b>{N} carta{S} de batalla</b> pero el adversario no tiene nada : guárdalas para cuando robe.", val: "Tens <b>{N} carta{S} de batalla</b> però l'adversari no té res : guarda-les per a quan robe." },
+  tipVente:            { fr: "Tu as <b>{N} trésor{S} de vente ★</b> sur ton mostrador : le vendre donne des cartes fraîches sans consommer un tour d'almoina.", es: "Tienes <b>{N} tesoro{S} de venta ★</b> en tu mostrador : venderlo da cartas frescas sin consumir un turno de almoina.", val: "Tens <b>{N} tresor{S} de venda ★</b> al teu mostrador : vendre'l dona cartes fresques sense consumir un torn d'almoina." },
+  tipAlmoina:          { fr: "Ta main ne contient ni bataille ni spéciale : moment idéal pour <b>almoina</b>{V}.", es: "Tu mano no tiene batalla ni especial : momento ideal para <b>almoina</b>{V}.", val: "La teua mà no té batalla ni especial : moment ideal per a <b>almoina</b>{V}." },
+  tipAlmVente:         { fr: ", ou vendre un trésor si tu en as un", es: ", o vender un tesoro si tienes uno", val: ", o vendre un tresor si en tens un" },
+  tipRetard:           { fr: "L'adversaire a <b>{N}/5 ingrédients</b>, il se rapproche. Envisage une attaque ciblée sur ses ingrédients.", es: "El adversario tiene <b>{N}/5 ingredientes</b>, se acerca. Considera un ataque a sus ingredientes.", val: "L'adversari té <b>{N}/5 ingredients</b>, s'acosta. Considera un atac als seus ingredients." },
+  tipNeutral:          { fr: "Pas de conseil tranché ce tour-ci : plusieurs options se valent. Équilibre entre jouer une carte utile maintenant et garder des options.", es: "Sin consejo claro este turno : varias opciones valen. Equilibra entre jugar ahora y guardar opciones.", val: "Sense consell clar este torn : diverses opcions valen. Equilibra entre jugar ara i guardar opcions." },
+  logVersCimetiere:    { fr: "part au cimetière (les cartes spéciales jouées ne vont JAMAIS sur le mostrador).", es: "va al cementerio (las cartas especiales NUNCA van al mostrador).", val: "va al cementeri (les cartes especials MAI van al mostrador)." },
 };
 
 // Raccourci de traduction
@@ -1364,51 +1468,45 @@ function buildStrategyTips() {
   const battleInHand = state.myHand.filter(c => c.type === "battle").length;
   const sellableOnCounter = state.myCounter.filter(c => c.sell).length;
   const stealableTargets = state.oppCounter.length;
+  const venteStr = sellableOnCounter > 0 ? t("tipAlmVente") : "";
 
-  // Etat de la main : alerte si elle se vide (la main ne contient que bataille/spéciales,
-  // les trésors étant désormais toujours sur le mostrador)
   if (handSize === 0) {
-    tips.push(`<b>Main vide !</b> Tu n'as plus aucune carte de bataille ni spéciale. La seule option qui te reste est <b>almoina</b> (ou vendre un trésor si tu en as un vendable sur ton mostrador).`);
+    tips.push(t("tipMainVide", {V: venteStr}));
   } else if (handSize <= 2) {
-    tips.push(`<b>Main presque vide (${handSize} carte${handSize>1?'s':''})</b> : pense sérieusement à faire almoina bientôt, sinon tu n'auras bientôt plus aucune option de jeu.`);
+    tips.push(t("tipMainBasse", {N: handSize, S: handSize > 1 ? "s" : ""}));
   } else if (handSize >= 8) {
-    tips.push(`<b>Main bien fournie (${handSize} cartes)</b> : c'est le bon moment pour jouer activement (attaquer, jouer une spéciale) plutôt que de piocher encore.`);
+    tips.push(t("tipMainPleine", {N: handSize}));
   }
 
-  // Ingrédients déjà sur le mostrador = rappel de progression
   if (myIng > 0) {
-    tips.push(`Tu as déjà <b>${myIng}/5 ingrédient${myIng>1?'s':''}</b> sur ton mostrador (posés automatiquement dès que tu les as piochés ou volés). Plus que ${5-myIng} pour gagner !`);
+    tips.push(t("tipIngredients", {N: myIng, S: myIng > 1 ? "s" : "", R: 5 - myIng}));
   }
 
-  // Cible de vol intéressante
   if (stealableTargets > 0 && battleInHand > 0) {
     const oppIngVisible = state.oppCounter.filter(c => c.ingredient).length;
     if (oppIngVisible > 0) {
-      tips.push(`L'adversaire a <b>${oppIngVisible} ingrédient${oppIngVisible>1?'s':''} visible${oppIngVisible>1?'s':''}</b> sur son mostrador : une bataille réussie te ferait gagner du terrain ET le ferait reculer. Vise en priorité ces cartes-là plutôt qu'un trésor sans intérêt.`);
+      tips.push(t("tipCibleIng", {N: oppIngVisible, S: oppIngVisible > 1 ? "s" : ""}));
     } else {
-      tips.push(`L'adversaire a des trésors visibles mais aucun ingrédient parmi eux : une bataille reste possible pour le gêner, mais ce n'est pas la priorité absolue.`);
+      tips.push(t("tipCibleNonIng"));
     }
   } else if (battleInHand > 0 && stealableTargets === 0) {
-    tips.push(`Tu as <b>${battleInHand} carte${battleInHand>1?'s':''} de bataille</b> en main mais l'adversaire n'a encore rien sur son mostrador : garde-les, elles te serviront dès qu'il piochera un trésor (ça lui arrivera automatiquement, il ne peut pas l'éviter).`);
+    tips.push(t("tipBatailleVide", {N: battleInHand, S: battleInHand > 1 ? "s" : ""}));
   }
 
-  // Vente de trésor comme alternative à almoina
   if (sellableOnCounter > 0) {
-    tips.push(`Tu as <b>${sellableOnCounter} trésor${sellableOnCounter>1?'s':''} "de vente"</b> déjà sur ton mostrador (marqué ★ dans sa description) : le vendre te donne des cartes fraîches <b>sans consommer un tour d'almoina pur</b> — souvent plus rentable si ce trésor ne te sert à rien d'autre. Attention : il reste vulnérable au vol tant que tu ne l'as pas vendu.`);
+    tips.push(t("tipVente", {N: sellableOnCounter, S: sellableOnCounter > 1 ? "s" : ""}));
   }
 
-  // Si la main est faible en options
   if (battleInHand === 0 && state.myHand.filter(c => c.type === "special").length === 0) {
-    tips.push(`Ta main ne contient ni carte de bataille ni carte spéciale utilisable : c'est typiquement le moment de faire <b>almoina</b> pour te renouveler${sellableOnCounter > 0 ? ", ou de vendre un trésor si tu en as un sur ton mostrador" : ""}.`);
+    tips.push(t("tipAlmoina", {V: venteStr}));
   }
 
-  // Avertissement si on est très en retard
   if (oppIng >= 3 && myIng < oppIng) {
-    tips.push(`L'adversaire a <b>${oppIng}/5 ingrédients</b>, il se rapproche de la victoire. Si tu as une carte de bataille, envisage une attaque ciblée sur un de ses ingrédients plutôt que de jouer prudent.`);
+    tips.push(t("tipRetard", {N: oppIng}));
   }
 
   if (tips.length === 0) {
-    tips.push(`Pas de conseil tranché ce tour-ci : plusieurs options se valent. Pense à l'équilibre entre "jouer une carte utile maintenant" et "garder assez de cartes en main pour plus tard".`);
+    tips.push(t("tipNeutral"));
   }
 
   return tips;
@@ -1429,13 +1527,13 @@ function placeSetupTreasure(idx) {
     .map((c, i) => (c.type === "treasure" ? i : null))
     .filter(i => i !== null);
 
-  logMsg(`Mise en place : tu poses "${card.n}" sur ton mostrador (obligatoire, ${card.ingredient ? "c'est un ingrédient !" : "effet : " + card.fr}).`, "you");
+  logMsg(`${{"fr":`Mise en place : tu poses "${card.n}" sur ton mostrador.`,"es":`Preparación : colocas "${card.n}" en tu mostrador.`,"val":`Preparació : poses "${card.n}" al teu mostrador.`}[lang]}`, "you");
 
   if (state.setupTreasureQueue.length > 0) {
-    setGuide("Mise en place — continue", `Encore ${state.setupTreasureQueue.length} trésor(s) à poser avant de pouvoir commencer ton premier vrai tour.`);
+    setGuide(t("gSetupContinue"), t("gSetupContinueT", {N: state.setupTreasureQueue.length}));
   } else {
     state.phase = "player";
-    setGuide("Mise en place terminée — à toi de jouer !", `Tous tes trésors de départ sont posés. Maintenant la vraie partie commence : choisis UNE action (vendre un trésor vendable si tu en as, attaquer, jouer une spéciale, ou almoina).`);
+    setGuide(t("gSetupFin"), t("gSetupFinT"));
     checkWin();
   }
   render();
@@ -1465,15 +1563,15 @@ function sellTreasureFromCounter(idx) {
   for (let i = 0; i < amount; i++) drawCardFor("me");
 
   if (card.effectTag === "dolçaina") {
-    logMsg(`Tu vends "${card.n}" contre ${amount} nouvelle(s) carte(s), et tu rejoues immédiatement une action en plus !`, "you");
-    setGuide("Dolçaina i tabalet — rejoue !", `"${card.n}" part au cimetière, tu piochés ${amount} carte(s), et contrairement aux trésors de vente classiques, ton tour N'EST PAS terminé : choisis tout de suite une nouvelle action.`);
+    logMsg(`${{"fr":`Tu vends "${card.n}" (+${amount} carte(s)) — rejoue immédiatement !`,"es":`Vendes "${card.n}" (+${amount} carta(s)) — ¡vuelve a jugar!`,"val":`Vens "${card.n}" (+${amount} carta/cartes) — torna a jugar!`}[lang]}`, "you");
+    setGuide(t("gDolçaina"), `"${card.n}" ${t("gDolçainaT")}`);
     checkWin();
     render(); // ne termine pas le tour : pas d'appel à endPlayerTurn()
     return;
   }
 
-  logMsg(`Tu vends "${card.n}" (déjà sur ton mostrador) contre ${amount} nouvelle(s) carte(s).`, "you");
-  setGuide("Trésor vendu", `"${card.n}" part au cimetière, et tu piochés ${amount} carte(s) en échange (si l'une d'elles est un trésor, il ira automatiquement sur ton mostrador). C'est une des façons d'obtenir des cartes fraîches sans faire almoina — mais ça reste ton action complète du tour.`);
+  logMsg(`${{"fr":`Tu vends "${card.n}" (+${amount} carte(s)).`,"es":`Vendes "${card.n}" (+${amount} carta(s)).`,"val":`Vens "${card.n}" (+${amount} carta/cartes).`}[lang]}`, "you");
+  setGuide(t("gTresorVendu"), `"${card.n}" ${t("gTresorVenduT")}`);
   checkWin();
   if (!state.gameOver) endPlayerTurn();
   render();
@@ -1481,7 +1579,7 @@ function sellTreasureFromCounter(idx) {
 
 function startBattle(idx) {
   if (state.oppCounter.length === 0) {
-    setGuide("Pas de cible", "L'adversaire n'a encore aucun trésor visible sur son mostrador. Choisis une autre action en attendant.");
+    setGuide(t("gPasCible"), t("gPasCibleT"));
     render();
     return;
   }
@@ -1494,7 +1592,7 @@ function startBattle(idx) {
   } else if (card.effectTag === "monleonLeader") {
     note = ` Note d'entraînement : son bonus "leadership" (+1 ATT si accompagné de Monleonetes) nécessite une combinaison de cartes que cette version simplifiée ne simule pas encore — elle combat ici avec ses points de base (ATT ${card.a}).`;
   }
-  setGuide("Choisis ta cible", `Tu attaques avec "${card.n}" (ATT ${attStr(card)}), posée face cachée. Choisis le trésor adverse que tu vises, puis confirme. L'adversaire pourra choisir de se défendre avec une carte de bataille, ou de ne pas se défendre du tout (l'attaquant gagne alors automatiquement).${note}`);
+  setGuide(t("gChoisisTarget"), `${t("gChoisisTargetT")} ${note}`);
   render();
 }
 
@@ -1508,7 +1606,7 @@ function confirmBattle() {
   state.phase = "battlePrep";
   const myCard = state.myHand[cardIdx];
   const target = state.oppCounter[targetIdx];
-  setGuide("Préparation de la bataille", `Carte posée face cachée : "${myCard.n}" (ATT ${attStr(myCard)}) contre "${target.n}". Avant la révélation, tu peux engager une carte spéciale de combat si tu en as une en main (Masclet, Espill lluent, Aigua de València), ou lancer directement la résolution.`);
+  setGuide(t("gPrepBataille"), t("gPrepBatailleT"));
   render();
 }
 
@@ -1527,22 +1625,22 @@ function playBattlePrepSpecial(handIdx) {
     }
     state.myHand.splice(handIdx, 1);
     sendToCemetery(card);
-    logMsg(`"${card.n}" engagée : l'adversaire perd ${n} carte(s) au hasard de sa main avant la bataille (${lost.join(", ") || "rien à perdre"}).`, "you");
-    setGuide("Masclet engagé", `Tu as affaibli la main de l'adversaire juste avant la résolution. Tu peux maintenant lancer la bataille.`);
+    logMsg(`"${card.n}" : ${{"fr":`adversaire perd ${n} carte(s) (${lost.join(", ")||"rien"}).`,"es":`adversario pierde ${n} carta(s) (${lost.join(", ")||"nada"}).`,"val":`adversari perd ${n} carta/cartes (${lost.join(", ")||"res"}).`}[lang]}`, "you");
+    setGuide(t("gMasclet"), t("gMascletT"));
   } else if (card.effect === "espill") {
     const myAtkCard = state.myHand[state.pendingBattle.cardIdx];
     const oldA = myAtkCard.a, oldD = myAtkCard.d;
     myAtkCard.a = oldD; myAtkCard.d = oldA;
     state.myHand.splice(handIdx, 1);
     sendToCemetery(card);
-    logMsg(`"${card.n}" engagée sur ta carte d'attaque "${myAtkCard.n}" : ATT et DEF sont inversés (ATT ${myAtkCard.a} désormais).`, "you");
-    setGuide("Espill lluent engagé", `Les valeurs ATT/DEF de ta carte de bataille viennent d'être inversées pour cette bataille.`);
+    logMsg(`"${card.n}" : ${{"fr":`ATT/DEF inversés sur "${myAtkCard.n}" (ATT ${myAtkCard.a} désormais).`,"es":`ATQ/DEF invertidos en "${myAtkCard.n}" (ATQ ${myAtkCard.a} ahora).`,"val":`ATQ/DEF invertits en "${myAtkCard.n}" (ATQ ${myAtkCard.a} ara).`}[lang]}`, "you");
+    setGuide(t("gEspill"), t("gEspillAtkT"));
   } else if (card.effect === "aigua") {
     state.pendingBattle.prep.defMalus += 1;
     state.myHand.splice(handIdx, 1);
     sendToCemetery(card);
-    logMsg(`"${card.n}" engagée : la défense adverse sera réduite de 1 point lors de la révélation. (Pas cumulable, donc inutile d'en jouer une deuxième.)`, "you");
-    setGuide("Aigua de València engagée", `La carte de défense adverse perdra 1 point au moment de la révélation.`);
+    logMsg(`"${card.n}" : ${{"fr":"défense adverse -1 point lors de la révélation.","es":"defensa adversaria -1 punto en la revelación.","val":"defensa adversària -1 punt en la revelació."}[lang]}`, "you");
+    setGuide(t("gAigua"), t("gAiguaAtkT"));
   }
   render();
 }
@@ -1566,8 +1664,8 @@ function launchBattleResolution() {
     if (myCard.effectTag === "moma") myAtt = 0;
     state.myCounter.push(target);
     state.oppCounter.splice(targetIdx, 1);
-    logMsg(`Tu attaques avec "${myCard.n}" (ATT ${myAtt}). L'adversaire ne se défend pas : tu remportes "${target.n}" automatiquement.`, "you");
-    if (myCard.effectTag === "alcaldessa") { state.myHand.push(myCard); logMsg(`"Perpétuité" : "${myCard.n}" revient dans ta main.`, "you"); }
+    logMsg(`${{"fr":`"${myCard.n}" (ATT ${myAtt}) — adversaire sans défense, tu remportes "${target.n}" !`,"es":`"${myCard.n}" (ATQ ${myAtt}) — sin defensa, ganas "${target.n}" !`,"val":`"${myCard.n}" (ATQ ${myAtt}) — sense defensa, guanyes "${target.n}" !`}[lang]}`, "you");
+    if (myCard.effectTag === "alcaldessa") { state.myHand.push(myCard); logMsg(`${{"fr":`"Perpétuité" : "${myCard.n}" revient dans ta main.`,"es":`"Perpetuidad" : "${myCard.n}" vuelve a tu mano.`,"val":`"Perpetuïtat" : "${myCard.n}" torna a la teua mà.`}[lang]}`, "you"); }
     else sendToCemetery(myCard);
     showBattleReveal({
       attacker: { card: myCard, value: myAtt, label: "ATT", who: "Toi" },
@@ -1597,7 +1695,7 @@ function launchBattleResolution() {
       state.oppHand.splice(aiguaIdx, 1);
       sendToCemetery(aiguaCard);
       aiAigua = 1;
-      logMsg(`L'adversaire engage "${aiguaCard.n}" en défense pour réduire ton attaque de 1 point.`, "opp");
+      logMsg(`${{"fr":`Adversaire engage "${aiguaCard.n}" : ton attaque -1 point.`,"es":`Adversario juega "${aiguaCard.n}" : tu ataque -1 punto.`,"val":`Adversari juga "${aiguaCard.n}" : el teu atac -1 punt.`}[lang]}`, "opp");
     }
 
     let oppDef = (oppDefCard.d ?? 0) + (hasBoost(state.oppCounter, "defBoost") ? 1 : 0) + (hasBoost(state.oppCounter, "sangonera") ? countIngredients(state.oppCounter) : 0) - defMalus;
@@ -1617,23 +1715,23 @@ function launchBattleResolution() {
     if (won) {
       state.myCounter.push(target);
       state.oppCounter.splice(targetIdx, 1);
-      logMsg(`Bataille : "${myCard.n}" (ATT ${myAtt}) bat "${oppDefCard.n}" (DEF ${oppDef}${aiguaNote}). Tu voles "${target.n}" !`, "you");
+      logMsg(`${{"fr":`"${myCard.n}" (ATT ${myAtt}) bat "${oppDefCard.n}" (DEF ${oppDef}${aiguaNote}) — tu voles "${target.n}" !`,"es":`"${myCard.n}" (ATQ ${myAtt}) vence "${oppDefCard.n}" (DEF ${oppDef}${aiguaNote}) — robas "${target.n}" !`,"val":`"${myCard.n}" (ATQ ${myAtt}) guanya "${oppDefCard.n}" (DEF ${oppDef}${aiguaNote}) — robes "${target.n}" !`}[lang]}`, "you");
       title = "Victoire en bataille";
       text = `Ton attaque (${myAtt}) était strictement supérieure à la défense adverse (${oppDef}) : "${target.n}" rejoint ton mostrador. Les deux cartes utilisées partent au cimetière.`;
-      if (myCard.effectTag === "alcaldessa") { state.myHand.push(myCard); logMsg(`"Perpétuité" : "${myCard.n}" revient dans ta main.`, "you"); }
+      if (myCard.effectTag === "alcaldessa") { state.myHand.push(myCard); logMsg(`${{"fr":`"Perpétuité" : "${myCard.n}" revient dans ta main.`,"es":`"Perpetuidad" : "${myCard.n}" vuelve a tu mano.`,"val":`"Perpetuïtat" : "${myCard.n}" torna a la teua mà.`}[lang]}`, "you"); }
       else sendToCemetery(myCard);
       if (myCard.effectTag === "bonusSteal" && state.oppCounter.length > 0) {
         const i2 = Math.floor(Math.random() * state.oppCounter.length);
         const bonus = state.oppCounter[i2];
         state.myCounter.push(bonus);
         state.oppCounter.splice(i2, 1);
-        logMsg(`Effet "Moco pegajoso" de "La Bellea del Moc" : tu voles aussi "${bonus.n}" en plus !`, "you");
+        logMsg(`${{"fr":`"Moco pegajoso" : tu voles aussi "${bonus.n}" !`,"es":`"Moco pegajoso" : también robas "${bonus.n}" !`,"val":`"Moc apegalós" : també robes "${bonus.n}" !`}[lang]}`, "you");
         text += ` Bonus "Moco pegajoso" : tu voles aussi "${bonus.n}" en plus !`;
       }
     } else {
       sendToCemetery(myCard);
       const isEqual = myAtt === oppDef;
-      logMsg(`Bataille perdue : "${myCard.n}" (ATT ${myAtt}) face à "${oppDefCard.n}" (DEF ${oppDef}${aiguaNote}).${isEqual ? " Rappel : à égalité, c'est le défenseur qui gagne." : ""}`, "you");
+      logMsg(`${{"fr":`"${myCard.n}" (ATT ${myAtt}) perd face à "${oppDefCard.n}" (DEF ${oppDef}${aiguaNote}).${isEqual?" Rappel : à égalité, le défenseur gagne.":""}`,"es":`"${myCard.n}" (ATQ ${myAtt}) pierde ante "${oppDefCard.n}" (DEF ${oppDef}${aiguaNote}).${isEqual?" Recuerda : en empate, gana el defensor.":""}`,"val":`"${myCard.n}" (ATQ ${myAtt}) perd davant "${oppDefCard.n}" (DEF ${oppDef}${aiguaNote}).${isEqual?" Recorda : en empat, guanya el defensor.":""}` }[lang]}`, "you");
       if (myCard.effectTag === "moma") {
         title = "Bataille perdue (La Moma)";
         text = `"La Moma" copie toujours exactement les points de la carte adverse : l'égalité est donc automatique, et en cas d'égalité c'est toujours le défenseur qui gagne. C'est une carte d'attaque structurellement perdante.`;
@@ -1670,7 +1768,7 @@ function cancelBattle() {
   // une fois la carte spéciale jouée, son effet n'est pas annulable.
   state.pendingBattle = null;
   state.phase = "player";
-  setGuide("Bataille annulée", "Pas de souci, choisis une autre action. Note : si tu avais déjà engagé une carte spéciale de combat, son effet reste appliqué — elle est déjà jouée et part au cimetière, peu importe l'issue.");
+  setGuide(t("gBatailleAnnulee"), t("gBatailleAnnuleeT"));
   render();
 }
 
@@ -1687,23 +1785,23 @@ function playDefensePrepSpecial(handIdx) {
     state.pendingDefense.defAtkMalus = (state.pendingDefense.defAtkMalus || 0) + 1;
     state.myHand.splice(handIdx, 1);
     sendToCemetery(card);
-    logMsg(`"${card.n}" engagée en défense : l'attaque adverse sera réduite de 1 point lors de la révélation. (Pas cumulable.)`, "you");
-    setGuide("Aigua de València engagée", `L'attaque de l'adversaire perdra 1 point au moment de la révélation.`);
+    logMsg(`"${card.n}" : ${{"fr":"défense — ataque adverse -1 point.","es":"defensa — ataque adversario -1 punto.","val":"defensa — atac adversari -1 punt."}[lang]}`, "you");
+    setGuide(t("gAigua"), t("gAiguaDefT"));
   } else if (card.effect === "espill" && state.pendingDefense.chosenDefIdx != null) {
     const myDefCard = state.myHand[state.pendingDefense.chosenDefIdx];
     const oldA = myDefCard.a, oldD = myDefCard.d;
     myDefCard.a = oldD; myDefCard.d = oldA;
     state.myHand.splice(handIdx, 1);
     sendToCemetery(card);
-    logMsg(`"${card.n}" engagée sur ta carte de défense "${myDefCard.n}" : ATT et DEF sont inversés (DEF ${myDefCard.d} désormais).`, "you");
-    setGuide("Espill lluent engagé", `Les valeurs de ta carte de défense viennent d'être inversées pour cette bataille.`);
+    logMsg(`"${card.n}" : ${{"fr":`ATT/DEF inversés sur "${myDefCard.n}" (DEF ${myDefCard.d} désormais).`,"es":`ATQ/DEF invertidos en "${myDefCard.n}" (DEF ${myDefCard.d} ahora).`,"val":`ATQ/DEF invertits en "${myDefCard.n}" (DEF ${myDefCard.d} ara).`}[lang]}`, "you");
+    setGuide(t("gEspill"), t("gEspillDefT"));
   } else if (card.effect === "espill") {
-    setGuide("Choisis d'abord ta défense", `Sélectionne ta carte de défense avant d'engager Espill lluent dessus.`);
+    setGuide(t('gEspillChoix'), t('gEspillChoixT'));
   } else if (card.effect === "protect") {
-    logMsg(`"${card.n}" engagée : elle n'a d'effet que contre une carte SPÉCIALE adverse, pas contre une bataille classique. Ici l'adversaire t'attaque avec une carte de bataille, donc elle est jouée sans effet utile dans ce contexte précis (mais elle part quand même au cimetière, comme dans le vrai jeu une fois jouée).`, "you");
+    logMsg(`"${card.n}" : ${{"fr":"hors contexte — protège contre les SPÉCIALES, pas les batailles. Part au cimetière.","es":"fuera de contexto — protege contra las ESPECIALES, no las batallas. Va al cementerio.","val":"fora de context — protegeix contra les ESPECIALS, no les batalles. Va al cementeri."}[lang]}`, "you");
     state.myHand.splice(handIdx, 1);
     sendToCemetery(card);
-    setGuide("Paella protectora — hors contexte", `Cette carte protège contre les cartes SPÉCIALES (vol, échange...), pas contre les batailles. Garde-la pour la bonne occasion : tu sauras qu'il faut la jouer quand le journal t'annoncera qu'une carte spéciale te cible.`);
+    setGuide(t('gPaellaHors'), t('gPaellaHorsT'));
   }
   render();
 }
@@ -1722,7 +1820,7 @@ function resolveDefense(noDefense) {
   if (noDefense || chosenDefIdx == null) {
     state.oppCounter.push(target);
     state.myCounter.splice(targetIdx, 1);
-    logMsg(`Tu choisis de ne pas te défendre. L'adversaire remporte "${target.n}" automatiquement.`, "you");
+    logMsg(`${{"fr":`Tu ne te défends pas. L'adversaire remporte "${target.n}".`,"es":`No te defiendes. El adversario gana "${target.n}".`,"val":`No et defenses. L'adversari guanya "${target.n}".`}[lang]}`, "you");
     showBattleReveal({
       attacker: { card: attackerCard, value: oppAtt, label: "ATT", who: "Adversaire" },
       defender: null,
@@ -1746,12 +1844,12 @@ function resolveDefense(noDefense) {
     if (won) {
       state.oppCounter.push(target);
       state.myCounter.splice(targetIdx, 1);
-      logMsg(`Bataille : "${attackerCard.n}" (ATT ${oppAtt}${malusNote}) bat ta défense "${myDefCard.n}" (DEF ${myDef}). L'adversaire vole "${target.n}".`, "you");
+      logMsg(`${{"fr":`"${attackerCard.n}" (ATQ ${oppAtt}${malusNote}) bat "${myDefCard.n}" (DEF ${myDef}). Perd "${target.n}".`,"es":`"${attackerCard.n}" (ATQ ${oppAtt}${malusNote}) vence "${myDefCard.n}" (DEF ${myDef}). Pierde "${target.n}".`,"val":`"${attackerCard.n}" (ATQ ${oppAtt}${malusNote}) guanya "${myDefCard.n}" (DEF ${myDef}). Perd "${target.n}".`}[lang]}`, "you");
       title = "Défense insuffisante";
       text = `L'attaque adverse (${oppAtt}) était supérieure à ta défense (${myDef}). Les deux cartes de bataille partent au cimetière, et tu perds "${target.n}".`;
     } else {
       const isEqual = oppAtt === myDef;
-      logMsg(`Bataille : ta défense "${myDefCard.n}" (DEF ${myDef}) résiste à l'attaque "${attackerCard.n}" (ATT ${oppAtt}${malusNote}). Tu gardes "${target.n}" !`, "you");
+      logMsg(`${{"fr":`"${myDefCard.n}" (DEF ${myDef}) résiste à "${attackerCard.n}" (ATQ ${oppAtt}${malusNote}). "${target.n}" reste !`,"es":`"${myDefCard.n}" (DEF ${myDef}) resiste "${attackerCard.n}" (ATQ ${oppAtt}${malusNote}). ¡"${target.n}" se queda!`,"val":`"${myDefCard.n}" (DEF ${myDef}) resisteix "${attackerCard.n}" (ATQ ${oppAtt}${malusNote}). "${target.n}" queda!`}[lang]}`, "you");
       title = "Défense réussie !";
       text = isEqual
         ? `Ta défense (${myDef}) était égale à l'attaque adverse (${oppAtt}) : à égalité, c'est toujours le défenseur qui gagne. "${target.n}" reste sur ton mostrador.`
@@ -1788,8 +1886,8 @@ function usePaellaProtectora(handIdx) {
   sendToCemetery(protectCard);
   sendToCemetery(card);
 
-  logMsg(`"${protectCard.n}" engagée : tu annules l'effet de "${card.n}" (niveau ${card.level} contre niveau ${protectCard.level}). Rien ne se passe, l'attaque adverse est neutralisée !`, "you");
-  setGuide("Annulé !", `"${protectCard.n}" a bloqué "${card.n}" avant qu'elle ne fasse effet. Ton mostrador reste intact.`);
+  logMsg(`"${protectCard.n}" : ${{"fr":`"${card.n}" annulée !`,"es":`"${card.n}" anulada !`,"val":`"${card.n}" anul·lada !`}[lang]}`, "you");
+  setGuide(t('gAnnule'), t('gAnnuleT'));
 
   state.pendingOppSpecial = null;
   checkWin();
@@ -1806,15 +1904,15 @@ function letOppSpecialResolve() {
     const stolen = state.myCounter[i];
     state.oppCounter.push(stolen);
     state.myCounter.splice(i, 1);
-    logMsg(`"${card.n}" fait effet : l'adversaire te vole "${stolen.n}" sans bataille.`, "opp");
-    setGuide("Effet subi", `Tu n'as pas (ou plus) de Paella protectora pour bloquer : "${stolen.n}" rejoint le mostrador adverse.`);
+    setGuide(t('gEffetSubi'), t('gEffetSubiT'));
+    setGuide(t('gEffetSubi'), t('gEffetSubiT'));
   } else if (card.effect === "swap" && state.myCounter.length > 0 && state.oppCounter.length > 0) {
     const myI = Math.floor(Math.random() * state.myCounter.length);
     const oppI = Math.floor(Math.random() * state.oppCounter.length);
     const mine = state.myCounter[myI], theirs = state.oppCounter[oppI];
     state.myCounter[myI] = theirs; state.oppCounter[oppI] = mine;
-    logMsg(`"${card.n}" fait effet : l'adversaire échange son trésor "${theirs.n}" contre ton "${mine.n}".`, "opp");
-    setGuide("Effet subi", `Échange forcé effectué — c'est désormais sur ton mostrador.`);
+    logMsg(`"${card.n}" : ${{"fr":`échange "${theirs.n}" ↔ "${mine.n}".`,"es":`intercambio "${theirs.n}" ↔ "${mine.n}".`,"val":`intercanvi "${theirs.n}" ↔ "${mine.n}".`}[lang]}`, "opp");
+    setGuide(t('gEffetSubi'), t('gEffetSubiT'));
   }
 
   state.pendingOppSpecial = null;
@@ -1836,15 +1934,15 @@ function playSpecial(idx) {
       const protectCard = state.oppHand[oppProtectIdx];
       state.oppHand.splice(oppProtectIdx, 1);
       sendToCemetery(protectCard);
-      logMsg(`L'adversaire engage "${protectCard.n}" : il annule l'effet de "${card.n}" avant qu'il ne fasse effet !`, "opp");
-      setGuide("Bloqué par l'adversaire", `L'adversaire avait "Paella protectora" en main et l'a utilisée pour se protéger. Ton effet est annulé.`);
+    setGuide(t('gBloqueAdv'), t('gBloqueAdvT'));
+      setGuide(t('gBloqueAdv'), t('gBloqueAdvT'));
     } else {
       const i = Math.floor(Math.random() * state.oppCounter.length);
       const stolen = state.oppCounter[i];
       state.myCounter.push(stolen);
       state.oppCounter.splice(i, 1);
-      logMsg(`"${card.n}" (niveau ${card.level}) : vol direct de "${stolen.n}", sans bataille.`, "you");
-      setGuide("Carte spéciale jouée", `"${card.n}" agit immédiatement. Les cartes spéciales ont un niveau (ici ${card.level}) : en cas de conflit avec une autre carte spéciale, celle de niveau supérieur l'emporte.`);
+    setGuide(t('gCarteSpeciale'), `"${card.n}" — ${cardDesc(card)}`);
+      setGuide(t('gCarteSpeciale'), `"${card.n}" — ${cardDesc(card)}`);
     }
   } else if (card.effect === "swap" && state.oppCounter.length > 0 && state.myCounter.length > 0) {
     const oppProtectIdx2 = state.oppHand.findIndex(c => c.effect === "protect");
@@ -1852,8 +1950,8 @@ function playSpecial(idx) {
       const protectCard = state.oppHand[oppProtectIdx2];
       state.oppHand.splice(oppProtectIdx2, 1);
       sendToCemetery(protectCard);
-      logMsg(`L'adversaire engage "${protectCard.n}" : il annule l'effet de "${card.n}" avant qu'il ne fasse effet !`, "opp");
-      setGuide("Bloqué par l'adversaire", `L'adversaire avait "Paella protectora" en main et l'a utilisée pour se protéger. Ton échange est annulé.`);
+    setGuide(t('gBloqueAdv'), t('gBloqueAdvT'));
+      setGuide(t('gBloqueAdv'), t('gBloqueAdvT'));
       checkWin();
       if (!state.gameOver) endPlayerTurn();
       render();
@@ -1863,8 +1961,8 @@ function playSpecial(idx) {
     const oppI = Math.floor(Math.random() * state.oppCounter.length);
     const mine = state.myCounter[myI], theirs = state.oppCounter[oppI];
     state.myCounter[myI] = theirs; state.oppCounter[oppI] = mine;
-    logMsg(`"${card.n}" : tu échanges "${mine.n}" contre "${theirs.n}".`, "you");
-    setGuide("Échange", `"${card.n}" te permet d'échanger un trésor avec l'adversaire sans bataille.`);
+    setGuide(t('gEchange'), t('gEchangeT'));
+    setGuide(t('gEchange'), t('gEchangeT'));
   } else if (card.effect === "dig") {
     // "Pioche 10 cartes, choisis-en 1" est un choix éclairé — même principe que
     // Cassalla et El jugador de Petrer : on affiche les 10 cartes et on laisse choisir.
@@ -1872,7 +1970,7 @@ function playSpecial(idx) {
     for (let i = 0; i < 10; i++) drawnPool.push(drawRandomCard());
     state.pendingDig = { pool: drawnPool };
     state.phase = "digChoice";
-    setGuide("Donyet escodrinyador — choisis ta carte", `Tu viens de "regarder" 10 cartes de la pioche. Choisis celle que tu veux garder. Les 9 autres seront remélangées dans la pioche.`);
+    setGuide(t("gDonyetChoix"), t("gDonyetChoixT"));
     render();
     return;
   } else if (card.effect === "mulligan") {
@@ -1881,23 +1979,23 @@ function playSpecial(idx) {
     // de défausser au hasard à sa place.
     state.pendingMulligan = { selected: [] };
     state.phase = "mulliganChoice";
-    setGuide("El jugador de Petrer — choisis tes défausses", `Sélectionne jusqu'à 5 cartes de ta main à défausser (clique pour les ajouter/retirer de la sélection), puis confirme. Tu piocheras autant de nouvelles cartes que tu en as défaussé.`);
+    setGuide(t('gJugadorChoix'), t('gJugadorChoixT'));
     render();
     return;
   } else if (card.effect === "replay") {
-    logMsg(`"${card.n}" : tu vas pouvoir enchaîner des actions supplémentaires.`, "you");
-    setGuide("Rejoue !", `"${card.n}" te donne 2 actions de plus à la suite. Dans cette version d'entraînement, joue simplement ta prochaine action normalement : le tour ne passe pas à l'adversaire.`);
-    logMsg(`"${card.n}" part au cimetière (les cartes spéciales jouées ne vont JAMAIS sur le mostrador — seuls les trésors y restent visibles).`, "system");
+    setGuide(t('gRejoue'), t('gRejoueT'));
+    setGuide(t('gRejoue'), t('gRejoueT'));
+    logMsg(`"${card.n}" ${t("logVersCimetiere")}`, "system");
     checkWin(); render(); return; // ne termine pas le tour
   } else if (card.effect === "dansa") {
     const drawn = drawCardFor("me");
-    logMsg(`"${card.n}" : tu piochés "${drawn.n}" (en partie réelle, le sens du tour changerait aussi — pas de sens de tour à gérer ici, à 2 joueurs).`, "you");
-    setGuide("Effet spécial", `"${card.n}" inverse le sens du tour et fait piocher une carte. À 2 joueurs cet effet de sens n'a pas d'impact visible.`);
+    setGuide(t('gCarteSpeciale'), `"${card.n}" — ${cardDesc(card)}`);
+    setGuide(t('gCarteSpeciale'), `"${card.n}" — ${cardDesc(card)}`);
   } else if (card.effect === "lluna" && state.oppCounter.length >= 0) {
     state.oppHand.push({ type: "special", n: "Lluna de València (forcée)", forced: true, effect: "lluna_force" });
     const drawn = drawCardFor("me");
-    logMsg(`"${card.n}" : posée sur le mostrador adverse. À son prochain tour, il devra la défausser et perdra son tour. Tu piochés "${drawn.n}".`, "you");
-    setGuide("Effet spécial", `"${card.n}" punit l'adversaire en lui faisant perdre une action complète à son prochain tour.`);
+    setGuide(t('gCarteSpeciale'), `"${card.n}" — ${cardDesc(card)}`);
+    setGuide(t('gCarteSpeciale'), `"${card.n}" — ${cardDesc(card)}`);
   } else if (card.effect === "beak") {
     if (state.oppHand.length >= 7) {
       const n = Math.min(3, state.oppHand.length);
@@ -1908,19 +2006,19 @@ function playSpecial(idx) {
         sendToCemetery(state.oppHand[r]);
         state.oppHand.splice(r, 1);
       }
-      logMsg(`"${card.n}" : l'adversaire avait ${n + state.oppHand.length} cartes en main (≥7), il perd ${n} carte(s) au hasard : ${lost.join(", ")}.`, "you");
-      setGuide("Effet spécial", `"${card.n}" punit les mains trop fournies (7 cartes ou plus). L'adversaire en avait assez pour déclencher l'effet.`);
+    setGuide(t('gCarteSpeciale'), `"${card.n}" — ${cardDesc(card)}`);
+      setGuide(t('gCarteSpeciale'), `"${card.n}" — ${cardDesc(card)}`);
     } else {
-      logMsg(`"${card.n}" : l'adversaire a moins de 7 cartes en main, l'effet ne se déclenche pas (carte jouée pour rien).`, "you");
-      setGuide("Effet sans cible", `"${card.n}" ne fonctionne que si l'adversaire a 7 cartes ou plus en main — ce n'est pas le cas ici, donc rien ne se passe. À utiliser au bon moment !`);
+    setGuide(t('gEffetSansCible'), `"${card.n}" — ${cardDesc(card)}`);
+      setGuide(t('gEffetSansCible'), `"${card.n}" — ${cardDesc(card)}`);
     }
   } else if (card.effect === "cremà") {
     const total = state.myCounter.length + state.oppCounter.length;
     state.myCounter.forEach(t => sendToCemetery(t));
     state.oppCounter.forEach(t => sendToCemetery(t));
     state.myCounter = []; state.oppCounter = [];
-    logMsg(`"${card.n}" : ${total} trésor(s) au total (les tiens et ceux de l'adversaire) sont défaussés. Les deux mostradors repartent à zéro !`, "you");
-    setGuide("Effet dévastateur", `"${card.n}" est une carte à double tranchant : elle te fait aussi perdre tes propres trésors. À réserver pour quand tu es très en retard et que l'adversaire a beaucoup plus à perdre que toi.`);
+    setGuide(t('gDevastateur'), t('gDevastateurT'));
+    setGuide(t('gDevastateur'), t('gDevastateurT'));
   } else if (card.effect === "cassalla") {
     if (state.cemetery.length > 0) {
       // "Récupère une carte" est un vrai choix éclairé, pas une pioche au
@@ -1928,53 +2026,53 @@ function playSpecial(idx) {
       // rôle avant de choisir laquelle ramener.
       state.pendingCassalla = true;
       state.phase = "cassallaChoice";
-      setGuide("Cassalla miraculosa — choisis ta carte", `Parcours le cimetière ci-dessous et choisis la carte que tu veux récupérer. Si c'est un trésor, il repartira automatiquement sur ton mostrador ; sinon elle rejoint ta main.`);
+      setGuide(t('gCassallaChoix'), t('gCassallaChoixT'));
       render();
       return;
     } else {
-      logMsg(`"${card.n}" : le cimetière est vide, aucune carte à récupérer (carte jouée pour rien).`, "you");
-      setGuide("Effet sans cible", `Le cimetière est encore vide en ce début de partie : "${card.n}" n'a rien à récupérer. Mieux vaut la garder pour plus tard.`);
+    setGuide(t('gEffetSansCible'), `"${card.n}" — ${cardDesc(card)}`);
+      setGuide(t('gEffetSansCible'), `"${card.n}" — ${cardDesc(card)}`);
     }
   } else if (card.effect === "pacte") {
     if (state.myCounter.length > 0) {
       const tmp = state.myCounter;
       state.myCounter = state.oppCounter;
       state.oppCounter = tmp;
-      logMsg(`"${card.n}" : tu échanges la TOTALITÉ de tes trésors contre la totalité de ceux de l'adversaire.`, "you");
-      setGuide("Pacte total", `"${card.n}" échange en bloc tous les mostradors. Risqué si tu as plus d'ingrédients que l'adversaire — vérifie bien avant de la jouer !`);
+    setGuide(t('gPacteTotal'), t('gPacteTotalT'));
+      setGuide(t('gPacteTotal'), t('gPacteTotalT'));
     } else {
-      logMsg(`"${card.n}" : tu n'as aucun trésor, impossible de jouer cette carte (elle nécessite d'en posséder au moins un).`, "you");
-      setGuide("Carte injouable", `"${card.n}" est inutilisable sans trésor à échanger. Garde-la pour plus tard.`);
+    setGuide(t('gCarteInjouable'), `"${card.n}" — ${cardDesc(card)}`);
+      setGuide(t('gCarteInjouable'), `"${card.n}" — ${cardDesc(card)}`);
     }
   } else if (card.effect === "muralla" || card.effect === "falla") {
     state.myCounter.push({ type: "treasure", n: card.n, ingredient: false, fr: card.fr, isShield: true });
-    logMsg(`"${card.n}" : posée sur ton mostrador comme protection. Elle compte comme un trésor exposé, mais bloque les vols directs.`, "you");
-    setGuide("Protection posée", `"${card.n}" — ${card.fr} Note : dans cette version, elle se pose comme un trésor classique sur ton mostrador (visible, vendable si applicable) ; la règle exacte d'opposition lors d'une bataille adverse n'est pas simulée en détail, mais le principe de protection contre le vol direct par carte spéciale est respecté pour les effets "steal"/"swap"/"pacte" que tu pourrais subir.`);
+    logMsg(`"${card.n}" : ${{"fr":"protection posée sur ton mostrador.","es":"protección colocada en tu mostrador.","val":"protecció col·locada al teu mostrador."}[lang]}`, "you");
+    setGuide(t('gProtection'), `"${card.n}" — ${cardDesc(card)}`);
   } else if (card.effect === "butoni") {
     state.oppCounter.push({ type: "treasure", n: card.n, ingredient: false, fr: card.fr, isButoni: true });
-    logMsg(`"${card.n}" : posée sur le mostrador adverse. Il ne pourra plus jouer aucune carte spéciale tant qu'elle y reste.`, "you");
-    setGuide("Blocage posé", `"${card.n}" empêche l'adversaire d'utiliser des cartes spéciales tant qu'elle reste sur son mostrador. Il peut utiliser un tour entier pour la défausser (non simulé automatiquement ici, mais visible sur son mostrador).`);
+    setGuide(t('gBlocage'), t('gBlocageT'));
+    setGuide(t('gBlocage'), t('gBlocageT'));
   } else if (card.effect === "almansa") {
     if (state.oppCounter.length === 0) {
-      logMsg(`"${card.n}" : l'adversaire n'a aucun trésor, impossible de jouer cette carte (carte jouée pour rien).`, "you");
-      setGuide("Carte injouable", `"${card.n}" nécessite que l'adversaire ait au moins un trésor à miser. Ce n'est pas le cas, donc rien ne se passe.`);
+    setGuide(t('gCarteInjouable'), `"${card.n}" — ${cardDesc(card)}`);
+      setGuide(t('gCarteInjouable'), `"${card.n}" — ${cardDesc(card)}`);
     } else if (state.myCounter.length === 0) {
-      logMsg(`"${card.n}" : tu n'as toi-même aucun trésor à risquer, impossible de jouer cette carte.`, "you");
-      setGuide("Carte injouable", `"${card.n}" t'oblige à miser TOUS tes trésors en cas de défaite — tu dois donc en posséder au moins un pour la jouer.`);
+    setGuide(t('gCarteInjouable'), `"${card.n}" — ${cardDesc(card)}`);
+      setGuide(t('gCarteInjouable'), `"${card.n}" — ${cardDesc(card)}`);
     } else {
       const won = Math.random() < 0.5;
       if (won) {
         const taken = state.oppCounter.slice();
         state.myCounter.push(...taken);
         state.oppCounter = [];
-        logMsg(`"${card.n}" : bataille à enjeu total remportée ! Tu rafles les ${taken.length} trésor(s) de l'adversaire d'un coup (${taken.map(t=>t.n).join(", ")}).`, "you");
-        setGuide("Victoire totale", `"${card.n}" est l'une des cartes les plus risquées et les plus puissantes du jeu : tu viens de rafler tout le mostrador adverse.`);
+    setGuide(t('gVictoireTotale'), t('gVictoireTotaleT'));
+        setGuide(t('gVictoireTotale'), t('gVictoireTotaleT'));
       } else {
         const given = state.myCounter.slice();
         state.oppCounter.push(...given);
         state.myCounter = [];
-        logMsg(`"${card.n}" : bataille à enjeu total perdue. Tu donnes tous tes trésors (${given.length}) à l'adversaire (${given.map(t=>t.n).join(", ")}).`, "you");
-        setGuide("Défaite totale", `"${card.n}" a un revers brutal : en cas de défaite, c'est TOI qui perds tout. À réserver pour les situations désespérées où tu n'as plus grand-chose à perdre.`);
+    setGuide(t('gDefaiteTotale'), t('gDefaiteTotaleT'));
+        setGuide(t('gDefaiteTotale'), t('gDefaiteTotaleT'));
       }
     }
   } else if (card.effect === "riua") {
@@ -1982,14 +2080,14 @@ function playSpecial(idx) {
     const oppGiven = state.oppCounter.slice();
     state.oppCounter = myGiven;
     state.myCounter = oppGiven;
-    logMsg(`"${card.n}" : tous les trésors changent de mains entre les deux joueurs (niveau 9, rien ne peut l'annuler).`, "you");
-    setGuide("La riada", `"${card.n}" redistribue tous les trésors d'un coup. À 2 joueurs, ton mostrador et celui de l'adversaire sont simplement échangés intégralement.`);
+    setGuide(t('gRiada'), t('gRiadaT'));
+    setGuide(t('gRiada'), t('gRiadaT'));
   } else {
-    logMsg(`"${card.n}" (niveau ${card.level}) — ${card.fr}`, "you");
-    setGuide("Carte spéciale jouée", `"${card.n}" — ${card.fr}`);
+    logMsg(`"${card.n}" (${{"fr":"niv","es":"niv","val":"niv"}[lang]}.${card.level}) — ${cardDesc(card)}`, "you");
+    setGuide(t('gCarteSpeciale'), `"${card.n}" — ${cardDesc(card)}`);
   }
 
-  logMsg(`"${card.n}" part au cimetière (les cartes spéciales jouées ne vont JAMAIS sur le mostrador — seuls les trésors y restent visibles).`, "system");
+  logMsg(`"${card.n}" ${t("logVersCimetiere")}`, "system");
 
   checkWin();
   if (!state.gameOver) endPlayerTurn();
@@ -1999,11 +2097,11 @@ function playSpecial(idx) {
 function almoina() {
   const card = drawCardFor("me");
   if (card.type === "treasure") {
-    logMsg(`Almoina : tu piochés "${card.n}", qui part directement sur ton mostrador.`, "you");
-    setGuide("Almoina", `Quand aucune carte en main ne te convient, piocher sans rien jouer reste une action à part entière. Ici tu as pioché un trésor : il est posé automatiquement sur ton mostrador, visible de l'adversaire — ce n'est jamais toi qui choisis de le garder caché.`);
+    logMsg(`${{"fr":`Almoina : tu piochés "${card.n}", il part sur ton mostrador.`,"es":`Almoina : robas "${card.n}", va a tu mostrador.`,"val":`Almoina : robes "${card.n}", va al teu mostrador.`}[lang]}`, "you");
+    setGuide(t("gAlmoina"), t("gAlmoinaT2"));
   } else {
-    logMsg(`Almoina : tu piochés "${card.n}".`, "you");
-    setGuide("Almoina", `Quand aucune carte en main ne te convient, piocher sans rien jouer reste une action à part entière. C'est l'une des SEULES façons de piocher en dehors d'un effet de carte (vente de trésor ou carte spéciale) : le jeu ne te distribue jamais de carte automatiquement entre les tours.`);
+    logMsg(`${{"fr":`Almoina : tu piochés "${card.n}".`,"es":`Almoina : robas "${card.n}".`,"val":`Almoina : robes "${card.n}".`}[lang]}`, "you");
+    setGuide(t("gAlmoina"), t("gAlmoinaT"));
   }
   endPlayerTurn();
   render();
@@ -2024,36 +2122,36 @@ function aiPlayNormalSpecial(card, idx) {
     const stolen = state.myCounter[i];
     state.oppCounter.push(stolen);
     state.myCounter.splice(i, 1);
-    logMsg(`L'adversaire joue "${card.n}" : vol direct de "${stolen.n}", sans bataille.`, "opp");
-    setGuide("Tour de l'adversaire", `"${card.n}" lui a permis de voler "${stolen.n}" directement.`);
+    setGuide(t('gTourAdversaire'), `"${card.n}" — ${cardDesc(card)}`);
+    setGuide(t('gTourAdversaire'), `"${card.n}" — ${cardDesc(card)}`);
   } else if (card.effect === "swap" && state.myCounter.length > 0 && state.oppCounter.length > 0) {
     const myI = Math.floor(Math.random() * state.myCounter.length);
     const oppI = Math.floor(Math.random() * state.oppCounter.length);
     const mine = state.myCounter[myI], theirs = state.oppCounter[oppI];
     state.myCounter[myI] = theirs; state.oppCounter[oppI] = mine;
-    logMsg(`L'adversaire joue "${card.n}" : il échange son trésor "${theirs.n}" contre ton "${mine.n}".`, "opp");
-    setGuide("Tour de l'adversaire", `Échange forcé : "${theirs.n}" est maintenant sur ton mostrador.`);
+    setGuide(t('gTourAdversaire'), `"${card.n}" — ${cardDesc(card)}`);
+    setGuide(t('gTourAdversaire'), `"${card.n}" — ${cardDesc(card)}`);
   } else if (card.effect === "dig") {
     const drawn = []; for (let i = 0; i < 10; i++) drawn.push(drawRandomCard());
     const kept = rnd(drawn);
     if (kept.type === "treasure") state.oppCounter.push(kept); else state.oppHand.push(kept);
-    logMsg(`L'adversaire joue "${card.n}" : il fouille 10 cartes de la pioche et en garde 1.`, "opp");
-    setGuide("Tour de l'adversaire", `"${card.n}" lui a permis de choisir une bonne carte parmi 10.`);
+    setGuide(t('gTourAdversaire'), `"${card.n}" — ${cardDesc(card)}`);
+    setGuide(t('gTourAdversaire'), `"${card.n}" — ${cardDesc(card)}`);
   } else if (card.effect === "mulligan") {
     const n = Math.min(5, state.oppHand.length);
     for (let i = 0; i < n; i++) { const r = Math.floor(Math.random() * state.oppHand.length); state.oppHand.splice(r, 1); }
     for (let i = 0; i < n; i++) drawCardFor("opp");
-    logMsg(`L'adversaire joue "${card.n}" : il défausse ${n} carte(s) et en pioche autant.`, "opp");
-    setGuide("Tour de l'adversaire", `Il a renouvelé sa main.`);
+    logMsg(`"${card.n}" : ${{"fr":`adversaire défausse ${n} carte(s).`,"es":`adversario descarta ${n} carta(s).`,"val":`adversari descarta ${n} carta/cartes.`}[lang]}`, "opp");
+    setGuide(t('gTourAdversaire'), t('gRenouvellementT'));
   } else if (card.effect === "dansa") {
     const drawn = drawCardFor("opp");
-    logMsg(`L'adversaire joue "${card.n}" : il pioche "${drawn.n}".`, "opp");
-    setGuide("Tour de l'adversaire", `Effet de sens de tour sans impact à 2 joueurs, mais il a pioché une carte.`);
+    setGuide(t('gTourAdversaire'), `"${card.n}" — ${cardDesc(card)}`);
+    setGuide(t('gTourAdversaire'), `"${card.n}" — ${cardDesc(card)}`);
   } else if (card.effect === "lluna") {
     state.myHand.push({ type: "special", n: "Lluna de València (forcée)", forced: true, effect: "lluna_force" });
     const drawn = drawCardFor("opp");
-    logMsg(`L'adversaire joue "${card.n}" sur ton mostrador : tu devras la défausser à ton prochain tour et perdras ton action. Il pioche "${drawn.n}".`, "opp");
-    setGuide("Tour de l'adversaire", `Tu seras forcé de défausser cette carte à ton prochain tour, sans rien pouvoir faire d'autre.`);
+    setGuide(t('gTourAdversaire'), `"${card.n}" — ${cardDesc(card)}`);
+    setGuide(t('gTourAdversaire'), `"${card.n}" — ${cardDesc(card)}`);
   } else if (card.effect === "beak") {
     if (state.myHand.length >= 7) {
       const n = Math.min(3, state.myHand.length);
@@ -2064,79 +2162,79 @@ function aiPlayNormalSpecial(card, idx) {
         sendToCemetery(state.myHand[r]);
         state.myHand.splice(r, 1);
       }
-      logMsg(`L'adversaire joue "${card.n}" : tu avais 7 cartes ou plus, tu perds ${n} carte(s) au hasard (${lost.join(", ")}).`, "opp");
-      setGuide("Tour de l'adversaire", `Ta main trop fournie t'a coûté ${n} carte(s).`);
+      logMsg(`"${card.n}" : ${{"fr":`tu perds ${n} carte(s) (${lost.join(", ")}).`,"es":`pierdes ${n} carta(s) (${lost.join(", ")}).`,"val":`perds ${n} carta/cartes (${lost.join(", ")}).`}[lang]}`, "opp");
+      setGuide(t('gTourAdversaire'), `"${card.n}" — ${cardDesc(card)}`);
     } else {
-      logMsg(`L'adversaire joue "${card.n}", mais tu as moins de 7 cartes : aucun effet (carte jouée pour rien).`, "opp");
-      setGuide("Tour de l'adversaire", `L'adversaire a joué cette carte sans condition remplie — elle est perdue pour rien.`);
+    setGuide(t('gTourAdversaire'), `"${card.n}" — ${cardDesc(card)}`);
+      setGuide(t('gTourAdversaire'), `"${card.n}" — ${cardDesc(card)}`);
     }
   } else if (card.effect === "cremà") {
     const total = state.myCounter.length + state.oppCounter.length;
     state.myCounter.forEach(t => sendToCemetery(t));
     state.oppCounter.forEach(t => sendToCemetery(t));
     state.myCounter = []; state.oppCounter = [];
-    logMsg(`L'adversaire joue "${card.n}" : ${total} trésor(s) au total sont défaussés, les deux mostradors repartent à zéro.`, "opp");
-    setGuide("Tour de l'adversaire", `Coup risqué de l'adversaire : il perd aussi ses propres trésors.`);
+    logMsg(`"${card.n}" : ${{"fr":`${total} trésor(s) défaussés — mostradors à zéro.`,"es":`${total} tesoro(s) descartados — mostradors a cero.`,"val":`${total} tresor(s) descartats — mostradors a zero.`}[lang]}`, "opp");
+    setGuide(t('gDevastateur'), t('gDevastateurT'));
   } else if (card.effect === "cassalla") {
     if (state.cemetery.length > 0) {
       const i = Math.floor(Math.random() * state.cemetery.length);
       const recovered = state.cemetery[i];
       state.cemetery.splice(i, 1);
       state.oppHand.push(recovered);
-      logMsg(`L'adversaire joue "${card.n}" : il récupère "${recovered.n}" depuis le cimetière.`, "opp");
-      setGuide("Tour de l'adversaire", `Il vient de repêcher une carte déjà utilisée.`);
+      logMsg(`"${card.n}" : ${{"fr":`adversaire récupère "${recovered.n}".`,"es":`adversario recupera "${recovered.n}".`,"val":`adversari recupera "${recovered.n}".`}[lang]}`, "opp");
+      setGuide(t('gTourAdversaire'), `"${card.n}" — ${cardDesc(card)}`);
     } else {
-      logMsg(`L'adversaire joue "${card.n}", mais le cimetière est vide : aucun effet.`, "opp");
-      setGuide("Tour de l'adversaire", `Carte jouée pour rien, le cimetière était vide.`);
+      logMsg(`"${card.n}" : ${{"fr":"cimetière vide — sans effet.","es":"cementerio vacío — sin efecto.","val":"cementeri buit — sense efecte."}[lang]}`, "opp");
+      setGuide(t('gEffetSansCible'), `"${card.n}" — ${cardDesc(card)}`);
     }
   } else if (card.effect === "pacte") {
     if (state.oppCounter.length > 0) {
       const tmp = state.oppCounter;
       state.oppCounter = state.myCounter;
       state.myCounter = tmp;
-      logMsg(`L'adversaire joue "${card.n}" : il échange la TOTALITÉ de ses trésors contre les tiens.`, "opp");
-      setGuide("Tour de l'adversaire", `Échange total des mostradors !`);
+      logMsg(`"${card.n}" : ${{"fr":"échange TOTAL des mostradors !","es":"¡intercambio TOTAL de mostradors!","val":"intercanvi TOTAL dels mostradors!"}[lang]}`, "opp");
+      setGuide(t('gPacteTotal'), t('gPacteTotalT'));
     } else {
-      logMsg(`L'adversaire tente "${card.n}" mais n'a aucun trésor : carte injouable, perdue pour rien.`, "opp");
-      setGuide("Tour de l'adversaire", `Effet sans cible.`);
+      logMsg(`"${card.n}" : ${{"fr":"sans trésor, carte injouable.","es":"sin tesoro, carta injugable.","val":"sense tresor, carta injugable."}[lang]}`, "opp");
+      setGuide(t('gEffetSansCible'), `"${card.n}" — ${cardDesc(card)}`);
     }
   } else if (card.effect === "muralla" || card.effect === "falla") {
     state.oppCounter.push({ type: "treasure", n: card.n, ingredient: false, fr: card.fr, isShield: true });
-    logMsg(`L'adversaire pose "${card.n}" sur son mostrador comme protection.`, "opp");
-    setGuide("Tour de l'adversaire", `Il vient de se protéger contre certains types de vol.`);
+    setGuide(t('gTourAdversaire'), `"${card.n}" — ${cardDesc(card)}`);
+    setGuide(t('gTourAdversaire'), `"${card.n}" — ${cardDesc(card)}`);
   } else if (card.effect === "butoni") {
     state.myCounter.push({ type: "treasure", n: card.n, ingredient: false, fr: card.fr, isButoni: true });
-    logMsg(`L'adversaire pose "${card.n}" sur TON mostrador : tu ne pourras plus jouer de carte spéciale tant qu'elle y reste.`, "opp");
-    setGuide("Tour de l'adversaire", `Tes cartes spéciales sont bloquées jusqu'à ce que cette carte soit retirée.`);
+    setGuide(t('gBlocage'), t('gBlocageT'));
+    setGuide(t('gTourAdversaire'), `"${card.n}" — ${cardDesc(card)}`);
   } else if (card.effect === "almansa") {
     if (state.myCounter.length === 0 || state.oppCounter.length === 0) {
-      logMsg(`L'adversaire tente "${card.n}" mais les conditions ne sont pas réunies : carte perdue pour rien.`, "opp");
-      setGuide("Tour de l'adversaire", `Effet sans cible.`);
+    setGuide(t('gEffetSansCible'), `"${card.n}" — ${cardDesc(card)}`);
+      setGuide(t('gTourAdversaire'), `"${card.n}" — ${cardDesc(card)}`);
     } else {
       const won = Math.random() < 0.5;
       if (won) {
         const taken = state.myCounter.slice();
         state.oppCounter.push(...taken);
         state.myCounter = [];
-        logMsg(`L'adversaire joue "${card.n}" et gagne la bataille à enjeu total : il rafle TOUS tes trésors (${taken.length}) !`, "opp");
-        setGuide("Tour de l'adversaire", `Coup dur : tu perds tout ton mostrador d'un coup.`);
+        logMsg(`"${card.n}" : ${{"fr":`adversaire gagne — il prend TOUS tes trésors (${taken.length}) !`,"es":`adversario gana — toma TODOS tus tesoros (${taken.length}) !`,"val":`adversari guanya — pren TOTS els teus tresors (${taken.length}) !`}[lang]}`, "opp");
+        setGuide(t('gDefaiteTotale'), t('gDefaiteTotaleT'));
       } else {
         const given = state.oppCounter.slice();
         state.myCounter.push(...given);
         state.oppCounter = [];
-        logMsg(`L'adversaire joue "${card.n}" mais perd la bataille à enjeu total : il te donne TOUS ses trésors (${given.length}) !`, "opp");
-        setGuide("Tour de l'adversaire", `Cadeau inattendu : tu récupères tout son mostrador.`);
+        logMsg(`"${card.n}" : ${{"fr":`adversaire perd — il te donne TOUS ses trésors (${given.length}) !`,"es":`adversario pierde — te da TODOS sus tesoros (${given.length}) !`,"val":`adversari perd — et dona TOTS els seus tresors (${given.length}) !`}[lang]}`, "opp");
+        setGuide(t('gVictoireTotale'), t('gVictoireTotaleT'));
       }
     }
   } else if (card.effect === "riua") {
     const tmp = state.oppCounter;
     state.oppCounter = state.myCounter;
     state.myCounter = tmp;
-    logMsg(`L'adversaire joue "${card.n}" : tous les trésors changent de mains entre les deux joueurs.`, "opp");
-    setGuide("Tour de l'adversaire", `Redistribution totale ! Niveau 9, rien ne peut l'annuler.`);
+    logMsg(`"${card.n}" : ${{"fr":"tous les trésors changent de mains !","es":"¡todos los tesoros cambian de manos!","val":"tots els tresors canvien de mans!"}[lang]}`, "opp");
+    setGuide(t('gRiada'), t('gRiadaT'));
   } else if (card.effect === "replay") {
-    logMsg(`L'adversaire joue "${card.n}" : il enchaîne des actions supplémentaires.`, "opp");
-    setGuide("Tour de l'adversaire", `"${card.n}" lui permet de continuer à jouer sans te rendre la main tout de suite.`);
+    setGuide(t('gTourAdversaire'), `"${card.n}" — ${cardDesc(card)}`);
+    setGuide(t('gTourAdversaire'), `"${card.n}" — ${cardDesc(card)}`);
     return "replay";
   } else {
     return false; // pas de cas géré à un tour normal (masclet, protect, spy, aigua, espill)
@@ -2151,8 +2249,8 @@ function playOpponentTurn() {
   const lunaIdx = state.oppHand.findIndex(c => c.effect === "lluna_force");
   if (lunaIdx !== -1) {
     state.oppHand.splice(lunaIdx, 1);
-    logMsg(`L'adversaire doit défausser la "Lluna de València" reçue : il perd son tour.`, "opp");
-    setGuide("Tour de l'adversaire", `L'adversaire était forcé de défausser la Lluna de València et ne peut rien faire d'autre ce tour. À toi !`);
+    logMsg(`${{"fr":'Adversaire défausse "Lluna de València" — perd son tour.',"es":'Adversario descarta "Lluna de València" — pierde su turno.',"val":'Adversari descarta "Lluna de València" — perd el seu torn.'}[lang]}`, "opp");
+    setGuide(t('gTourAdversaire'), t('gAlmoinaT'));
     state.turn++; state.phase = "player"; render(); return;
   }
 
@@ -2180,9 +2278,9 @@ function playOpponentTurn() {
     // pour annuler cette carte spéciale avant qu'elle ne fasse effet.
     state.pendingOppSpecial = { card };
     state.phase = "reactToOppSpecial";
-    logMsg(`L'adversaire joue "${card.n}" et te cible directement !`, "opp");
+    logMsg(`${{"fr":`Adversaire joue "${card.n}" et te cible !`,"es":`¡Adversario juega "${card.n}" y te apunta!`,"val":`Adversari juga "${card.n}" i t'apunta!`}[lang]}`, "opp");
     const hasProtect = state.myHand.some(c => c.effect === "protect");
-    setGuide("L'adversaire te cible avec une carte spéciale !", `"${card.n}" — ${card.fr} ${hasProtect ? `Tu as "Paella protectora" en main : tu peux l'engager pour annuler cet effet (niveau ${card.level} contre niveau 3 — ça fonctionne sauf exception comme la Riuà).` : "Tu n'as pas de Paella protectora en main pour t'en protéger cette fois."}`);
+    setGuide(t('gAdversaireCible'), `"${card.n}" — ${cardDesc(card)}`);
     render();
     return;
   }
@@ -2215,7 +2313,7 @@ function playOpponentTurn() {
         sendToCemetery(state.myHand[r]);
         state.myHand.splice(r, 1);
       }
-      logMsg(`L'adversaire engage "${mascletCard.n}" avant d'attaquer : tu perds ${n} carte(s) au hasard (${lost.join(", ") || "rien à perdre"}).`, "opp");
+      logMsg(`"${mascletCard.n}" : ${{"fr":`tu perds ${n} carte(s) (${lost.join(", ")||"rien"}).`,"es":`pierdes ${n} carta(s) (${lost.join(", ")||"nada"}).`,"val":`perds ${n} carta/cartes (${lost.join(", ")||"res"}).`}[lang]}`, "opp");
     }
     const espillIdx = state.oppHand.findIndex(c => c.effect === "espill");
     if (espillIdx !== -1 && Math.random() < ai.pEspill) {
@@ -2224,7 +2322,7 @@ function playOpponentTurn() {
       sendToCemetery(espillCard);
       const oldA = myCard.a, oldD = myCard.d;
       myCard.a = oldD; myCard.d = oldA;
-      logMsg(`L'adversaire engage "${espillCard.n}" sur sa carte d'attaque : ses valeurs ATT/DEF sont inversées (ATT ${myCard.a} désormais).`, "opp");
+      logMsg(`"${espillCard.n}" : ${{"fr":`ATT/DEF adversaire inversés (ATT ${myCard.a}).`,"es":`ATQ/DEF adversario invertidos (ATQ ${myCard.a}).`,"val":`ATQ/DEF adversari invertits (ATQ ${myCard.a}).`}[lang]}`, "opp");
     }
 
     // On ne résout plus tout de suite : on ouvre une fenêtre de défense où TOI
@@ -2236,8 +2334,8 @@ function playOpponentTurn() {
     const myDefenseCards = state.myHand.filter(c => c.type === "battle");
     const spyCard = state.myHand.find(c => c.effect === "spy");
     const revealNote = spyCard ? ` Tu as "Espionatge" en main : la carte adverse t'est déjà révélée grâce à elle.` : ` Tu ne sais pas quelle carte l'adversaire a engagée (sauf si tu joues Espionatge).`;
-    logMsg(`L'adversaire déclare une bataille pour "${target.n}" !`, "opp");
-    setGuide("L'adversaire t'attaque !", `Bataille déclarée pour "${target.n}".${revealNote} ${myDefenseCards.length > 0 ? "Choisis ta carte de défense ci-dessous, ou décide de ne pas te défendre." : "Tu n'as aucune carte de bataille en main : tu ne pourras pas te défendre."} Tu peux aussi engager une carte spéciale de défense (Aigua de València, Espill lluent, Paella protectora) si tu en as.`);
+    logMsg(`${{"fr":`Adversaire déclare une bataille pour "${target.n}" !`,"es":`¡Adversario declara una batalla por "${target.n}" !`,"val":`Adversari declara una batalla per "${target.n}" !`}[lang]}`, "opp");
+    setGuide(t('gAdversaireAttaque'), `${t('gAdversaireAttaque')} — "${target.n}"`);
     render();
     return;
   } else if (willPlayNormalSpecial) {
@@ -2254,13 +2352,13 @@ function playOpponentTurn() {
     state.oppCounter.splice(sellableIdx, 1);
     sendToCemetery(card);
     for (let i = 0; i < amount; i++) drawCardFor("opp");
-    logMsg(`L'adversaire vend "${card.n}" contre ${amount} nouvelle(s) carte(s).`, "opp");
-    setGuide("Tour de l'adversaire", `L'adversaire a vendu un trésor déjà sur son mostrador pour se renouveler en cartes.`);
+    setGuide(t('gTourAdversaire'), t('gTresorVenduT'));
+    setGuide(t('gTourAdversaire'), `"${card.n}" — ${cardDesc(card)}`);
   } else {
     const card = drawCardFor("opp");
-    if (card.type === "treasure") logMsg(`L'adversaire fait almoina et pioche "${card.n}", qui part directement sur son mostrador.`, "opp");
-    else logMsg(`L'adversaire fait almoina et pioche.`, "opp");
-    setGuide("Tour de l'adversaire", `L'adversaire n'avait rien d'utile à jouer et a juste pioché. À toi de jouer !`);
+    if (card.type === "treasure") logMsg(`${{"fr":`Adversaire : almoina, "${card.n}" sur son mostrador.`,"es":`Adversario : almoina, "${card.n}" en su mostrador.`,"val":`Adversari : almoina, "${card.n}" al seu mostrador.`}[lang]}`, "opp");
+    setGuide(t('gTourAdversaire'), t('gAlmoinaT'));
+    setGuide(t('gTourAdversaire'), `"${card.n}" — ${cardDesc(card)}`);
   }
 
   checkWin();
