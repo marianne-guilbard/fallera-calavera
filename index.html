@@ -9,9 +9,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Pirata+One&family=IM+Fell+English+SC&family=Special+Elite&display=swap" rel="stylesheet">
 <style>
   :root {
-    --paper: #e8dcc0;
-    --paper-dark: #d8c8a0;
-    --paper-darker: #c4b282;
+    --paper: #f0e4ca;
+    --paper-dark: #e4d4a8;
+    --paper-darker: #d8c08a;
     --ink: #2a1d12;
     --ink-soft: #5c4a36;
     --char: #1a120a;
@@ -20,14 +20,285 @@
     --flame-light: #e8762e;
     --blood: #8a2418;
     --blood-dark: #5c1610;
-    --gold: #a87a28;
-    --gold-dark: #6e4e18;
+    --gold: #c89a38;
+    --gold-dark: #907028;
     --bone: #f0e8d4;
     --night: #524232;
     --night-light: #6e5a42;
     --sickly: #7a8a4a;
     --sickly-dark: #4a5a28;
+    /* transitions douces lors du changement de thème */
+    --theme-transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
   }
+
+  /* ══════════════════════════════════════════════════════
+     THÈME CLAIR — parchemin chaud, sans blanc pur, sans vert.
+     Palette : sable/or/cuivre/rouge brique/bordeaux.
+     ══════════════════════════════════════════════════════ */
+
+  body.theme-light {
+    background:
+      radial-gradient(ellipse at 20% 0%, rgba(196,80,30,0.10), transparent 55%),
+      radial-gradient(ellipse at 80% 100%, rgba(160,80,10,0.07), transparent 55%),
+      #ddd0b0;
+    background-attachment: fixed;
+    color: #1a0e06;
+  }
+
+  body.theme-light h1 {
+    color: #b83010;
+    text-shadow: 1px 1px 0 #c8b888, 0 0 16px rgba(184,48,16,0.15);
+  }
+  body.theme-light .subtitle { color: #4a2e10; }
+
+  /* ── Sidebar ── */
+  body.theme-light .log-sidebar {
+    background: linear-gradient(165deg, #cfc0a0, #c4b490) !important;
+    border-color: #a07828 !important;
+    box-shadow: none !important;
+  }
+  body.theme-light .section-title {
+    color: #7a3e08 !important;
+    border-color: #b09040 !important;
+  }
+  body.theme-light .sidebar-divider { border-color: #b09040 !important; }
+  body.theme-light .ai-level-label { color: #3a1e08 !important; }
+  body.theme-light .ai-lvl-btn {
+    background: linear-gradient(160deg, #d8c898, #cebe88) !important;
+    color: #1a0e06 !important;
+    border-color: #a07828 !important;
+  }
+  body.theme-light .ai-lvl-btn:hover {
+    background: linear-gradient(160deg, #e0d0a0, #d8c890) !important;
+    border-color: #7a4808 !important;
+  }
+
+  /* ── Journal ── */
+  body.theme-light .log p         { color: #1a0e06 !important; }
+  body.theme-light .log p.you     { color: #5a2808 !important; }
+  body.theme-light .log p.opp     { color: #700808 !important; }
+  body.theme-light .log p.system  { color: #3a2808 !important; }
+
+  /* ── Guide (bleu ardoise au lieu de vert) ── */
+  body.theme-light .guide-box {
+    background: linear-gradient(160deg, #c8d8e8, #b8c8dc) !important;
+    border-left: 4px solid #386898 !important;
+    border-color: #386898 !important;
+    color: #081828 !important;
+  }
+  body.theme-light .guide-title { color: #0e2840 !important; }
+  body.theme-light .guide-box p  { color: #102030 !important; }
+
+  /* ── Conseil tactique (or/ambre au lieu de vert) ── */
+  body.theme-light .strategy-box {
+    background: linear-gradient(160deg, #e8d898, #dece88) !important;
+    border-left: 4px solid #a07018 !important;
+    border-color: #a07018 !important;
+    color: #2a1800 !important;
+  }
+  body.theme-light .strategy-title { color: #6a3800 !important; }
+  body.theme-light .strategy-box li,
+  body.theme-light .hand-state { color: #2a1808 !important; }
+  body.theme-light .toggle-guide {
+    color: #386898 !important;
+    border-color: #386898 !important;
+    background: transparent !important;
+  }
+
+  /* ── Badges ── */
+  body.theme-light .badge {
+    background: linear-gradient(160deg, #cfc0a0, #c4b490) !important;
+    color: #1a0e06 !important;
+    border-color: #a07828 !important;
+    box-shadow: none !important;
+  }
+  body.theme-light .badge.alert {
+    background: linear-gradient(160deg, #e8c0a0, #dea888) !important;
+    border-color: #b83010 !important;
+    color: #4a0808 !important;
+  }
+  body.theme-light .hand-count {
+    background: linear-gradient(160deg, #cfc0a0, #c4b490) !important;
+    border-color: #a07828 !important;
+    color: #1a0e06 !important;
+  }
+  body.theme-light .hand-count.alert {
+    background: linear-gradient(160deg, #e8c0a0, #dea888) !important;
+    border-color: #b83010 !important;
+    color: #4a0808 !important;
+  }
+
+  /* ── Mostradors ── */
+  body.theme-light .counter-area {
+    background:
+      repeating-linear-gradient(45deg, rgba(0,0,0,0.03) 0 2px, transparent 2px 6px),
+      linear-gradient(160deg, #d8c898, #cebe88) !important;
+    border: 1px solid #a07828 !important;
+    box-shadow: inset 0 0 16px rgba(0,0,0,0.08) !important;
+  }
+  body.theme-light .empty-hint { color: #7a5828 !important; }
+
+  /* ── Cartes — sans vert, palette cuivre/or/bordeaux/ardoise ── */
+  body.theme-light .playcard {
+    box-shadow: 1px 2px 4px rgba(0,0,0,0.15) !important;
+  }
+  /* Ingrédients : cuivre/orange chaud au lieu de vert */
+  body.theme-light .playcard.treasure.is-ingredient {
+    background: linear-gradient(160deg, #e8c8a0, #d8b888) !important;
+    border-color: #a05818 !important;
+  }
+  body.theme-light .playcard.treasure.is-ingredient .pc-ingredient-tag { color: #8a3808 !important; }
+  /* Trésors de vente : or/jaune sable */
+  body.theme-light .playcard.treasure.is-sellable {
+    background: linear-gradient(160deg, #e8d898, #dece80) !important;
+    border-color: #a07818 !important;
+  }
+  /* Trésors passifs : parchemin neutre */
+  body.theme-light .playcard.treasure.is-passive {
+    background: linear-gradient(160deg, #e0cfa8, #d4c090) !important;
+    border-color: #886828 !important;
+  }
+  /* Cartes de bataille : rouge brique/bordeaux */
+  body.theme-light .playcard.battle {
+    background: linear-gradient(160deg, #e8c8b8, #deb8a0) !important;
+    border-color: #a03018 !important;
+  }
+  /* Cartes spéciales : ardoise/bleu-gris au lieu de violet */
+  body.theme-light .playcard.special {
+    background: linear-gradient(160deg, #c8d8e8, #b8c8d8) !important;
+    border-color: #386898 !important;
+  }
+  body.theme-light .pc-name     { color: #0e0806 !important; }
+  body.theme-light .pc-foot     { color: #1e1008 !important; }
+  body.theme-light .pc-category { color: #4a2e0e !important; }
+  body.theme-light .pc-stats .a { color: #880808 !important; font-weight: bold; }
+  body.theme-light .pc-stats .d { color: #082080 !important; font-weight: bold; }
+  body.theme-light .pc-skull {
+    background: #b07820 !important;
+    color: #f8f0d8 !important;
+    border-color: #886010 !important;
+  }
+  body.theme-light .playcard.treasure .pc-skull { background: #a06818 !important; }
+  body.theme-light .playcard.battle .pc-skull   { background: #902010 !important; }
+  body.theme-light .playcard.special .pc-skull  { background: #306080 !important; }
+  body.theme-light .pc-level {
+    background: #306080 !important;
+    color: #e0eef8 !important;
+    border-color: #204860 !important;
+  }
+
+  /* ── Bouton Almoina ── */
+  body.theme-light .almoina-btn {
+    background: linear-gradient(160deg, #cfc0a0, #c4b490) !important;
+    color: #1a0e06 !important;
+    border-color: #a07828 !important;
+  }
+  body.theme-light .almoina-btn:not(:disabled):hover {
+    background: linear-gradient(160deg, #ddd0a8, #d0c498) !important;
+    border-color: #7a4808 !important;
+    box-shadow: 0 0 6px rgba(120,72,8,0.25) !important;
+  }
+
+  /* ── Boutons de carte ── */
+  body.theme-light .card-action-btn {
+    background: linear-gradient(160deg, #cfc0a0, #c4b490) !important;
+    color: #1a0e06 !important;
+    border-color: #a07828 !important;
+  }
+  body.theme-light .card-action-btn:hover:not(:disabled) {
+    background: linear-gradient(160deg, #ddd0a8, #d0c498) !important;
+    border-color: #7a4808 !important;
+  }
+  /* Bouton "Garder / Récupérer / Sélectionné" : or au lieu de vert */
+  body.theme-light .card-action-btn.primary {
+    background: linear-gradient(160deg, #e0c870, #d0b058) !important;
+    border-color: #907020 !important;
+    color: #1a0e06 !important;
+  }
+
+  /* ── Boutons principaux ── */
+  body.theme-light button.primary {
+    background: linear-gradient(160deg, #c85808, #a04008) !important;
+    color: #f8f0e0 !important;
+    border-color: #803008 !important;
+  }
+  body.theme-light button.danger {
+    background: linear-gradient(160deg, #b82008, #900808) !important;
+    color: #f8f0e0 !important;
+    border-color: #700808 !important;
+  }
+
+  /* ── Zones de bataille ── */
+  body.theme-light .battle-box {
+    background: linear-gradient(160deg, #e0c0b0, #d4b098) !important;
+    border-color: #a03018 !important;
+    border-left-color: #a03018 !important;
+  }
+  body.theme-light .battle-box p { color: #1a0808 !important; }
+  body.theme-light .reveal-box {
+    background: linear-gradient(160deg, #e0d0a8, #d4c090) !important;
+    border-color: #a07828 !important;
+  }
+  body.theme-light .reveal-title { color: #b83010 !important; }
+  body.theme-light .reveal-target,
+  body.theme-light .reveal-text,
+  body.theme-light .reveal-who,
+  body.theme-light .reveal-target-label { color: #1a0e06 !important; }
+  body.theme-light .reveal-vs-label { color: #7a3e08 !important; }
+  /* Gagnant : or/ambre au lieu de vert */
+  body.theme-light .reveal-side.winner .reveal-value {
+    background: linear-gradient(160deg, #e0c870, #d0b058) !important;
+    border-color: #907020 !important;
+    color: #1a0e06 !important;
+  }
+  body.theme-light .reveal-side.loser .reveal-value {
+    background: linear-gradient(160deg, #e0b8a8, #d0a890) !important;
+    border-color: #a03018 !important;
+    color: #3a0808 !important;
+  }
+
+  /* ── Rappel des règles ── */
+  body.theme-light .rules-recap {
+    background: linear-gradient(160deg, #d0c098, #c8b888) !important;
+    border-color: #a07828 !important;
+    color: #1a0e06 !important;
+  }
+  body.theme-light .rules-recap strong { color: #7a3e08 !important; }
+
+  /* ── Index complet des cartes ── */
+  body.theme-light details.cardex {
+    background: linear-gradient(160deg, #d8c898, #cebe88) !important;
+    border-color: #a07828 !important;
+  }
+  body.theme-light details.cardex > summary {
+    color: #5a2808 !important;
+  }
+  body.theme-light .cardex-grid .ce {
+    background: linear-gradient(160deg, #e8d8a8, #e0ce98) !important;
+    border-color: #b08830 !important;
+    color: #1a0e06 !important;
+  }
+  body.theme-light .cardex-grid .ce b { color: #5a2808 !important; }
+
+  /* ── Fin de partie ── */
+  /* Victoire : or/ambre au lieu de vert */
+  body.theme-light .game-over.win {
+    background: linear-gradient(160deg, #e8d898, #d8c880) !important;
+    color: #2a1000 !important;
+    border-color: #907020 !important;
+  }
+  body.theme-light .game-over.lose {
+    background: linear-gradient(160deg, #e8c0b0, #d8a898) !important;
+    color: #2a0808 !important;
+    border-color: #a03018 !important;
+  }
+
+  /* ── Sélection cible ── */
+  body.theme-light .mini-wrap.selected {
+    border-color: #b83010 !important;
+    box-shadow: 0 0 8px rgba(184,48,16,0.3) !important;
+  }
+
   * { box-sizing: border-box; }
   body {
     margin: 0;
@@ -373,12 +644,116 @@
   .cardex-grid { margin-top: 12px; display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 8px 16px; }
   .cardex-grid .ce { color: var(--paper-darker); font-family: 'Special Elite', monospace; font-size: 0.74rem; line-height: 1.5; }
   .cardex-grid .ce b { color: var(--paper); font-family: 'IM Fell English SC', serif; font-size: 0.85rem; }
+  /* ── Page de garde (overlay) ── */
+  .welcome-overlay {
+    position: fixed; inset: 0; z-index: 9999;
+    background: rgba(20, 14, 8, 0.92);
+    display: flex; align-items: center; justify-content: center;
+    padding: 1.5rem;
+    backdrop-filter: blur(3px);
+  }
+  .welcome-card {
+    max-width: 600px; width: 100%;
+    background: linear-gradient(160deg, #5a4a34, #3d3020);
+    border: 2px solid var(--gold);
+    border-radius: 10px;
+    padding: 2.5rem 2.5rem 2rem;
+    text-align: center;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.6), inset 0 0 0 1px rgba(200,160,50,0.12);
+  }
+  .welcome-skull { font-size: 2.8rem; margin-bottom: 0.4rem; }
+  .welcome-title {
+    font-family: 'Pirata One', cursive;
+    font-size: 2.2rem; color: var(--flame-light);
+    text-shadow: 2px 2px 0 var(--char), 0 0 20px rgba(196,80,30,0.4);
+    margin: 0 0 0.1rem;
+  }
+  .welcome-subtitle {
+    font-family: 'IM Fell English SC', serif;
+    font-size: 0.95rem; color: var(--gold);
+    letter-spacing: 0.08em; margin: 0 0 1.5rem;
+  }
+  .welcome-block {
+    background: rgba(0,0,0,0.25);
+    border-radius: 6px; padding: 1rem 1.2rem;
+    margin-bottom: 1rem; text-align: center;
+  }
+  .welcome-block p {
+    font-family: 'IM Fell English SC', serif;
+    font-size: 1.05rem; color: var(--paper);
+    line-height: 1.7; margin: 0; text-align: center;
+  }
+  .welcome-disclaimer {
+    font-size: 0.88rem; color: var(--paper-darker);
+    font-style: italic; line-height: 1.6; margin: 0;
+    text-align: center;
+  }
+  .welcome-start {
+    margin-top: 1.6rem; width: 100%; padding: 14px;
+    font-family: 'Pirata One', cursive; font-size: 1.2rem;
+    color: var(--char); cursor: pointer;
+    background: linear-gradient(160deg, var(--gold), #7a5a18);
+    border: none; border-radius: 6px;
+    letter-spacing: 0.05em;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.4);
+    transition: all 0.2s;
+  }
+  .welcome-start:hover {
+    background: linear-gradient(160deg, #d4a030, var(--gold));
+    transform: translateY(-1px);
+    box-shadow: 0 5px 18px rgba(0,0,0,0.5);
+  }
+  .welcome-lang-bar {
+    display: flex; justify-content: center; gap: 8px;
+    margin-bottom: 1.5rem;
+  }
+  .welcome-lang-btn {
+    font-family: 'Special Elite', monospace; font-size: 0.82rem;
+    padding: 5px 12px; border-radius: 4px;
+    border: 1px solid var(--gold-dark);
+    background: linear-gradient(160deg, var(--night-light), var(--night));
+    color: var(--paper-darker); cursor: pointer; transition: all 0.15s;
+  }
+  .welcome-lang-btn.active {
+    border-color: var(--gold); background: #3a2e10; color: var(--paper);
+  }
+  .welcome-lang-btn:hover { border-color: var(--gold); color: var(--paper); }
 </style>
 </head>
 <body>
+
+<!-- ── Page de garde ── -->
+<div class="welcome-overlay" id="welcome-overlay">
+  <div class="welcome-card">
+    <div class="welcome-skull">💀🥘💀</div>
+    <h1 class="welcome-title" id="wc-title">La Fallera Calavera</h1>
+    <div class="welcome-subtitle" id="wc-subtitle">Simulateur d'entraînement</div>
+
+    <div class="welcome-lang-bar">
+      <button class="welcome-lang-btn active" id="wlb-fr" onclick="setWelcomeLang('fr')">🇫🇷 Français</button>
+      <button class="welcome-lang-btn" id="wlb-es" onclick="setWelcomeLang('es')">🇪🇸 Español</button>
+      <button class="welcome-lang-btn" id="wlb-val" onclick="setWelcomeLang('val')">🏳️ Valencià</button>
+    </div>
+
+    <div class="welcome-block">
+      <p id="wc-goal">Ce simulateur a été créé pour apprendre les règles du jeu de cartes <em>La Fallera Calavera</em> avant d'y jouer en vrai avec des amis ou en famille.</p>
+    </div>
+
+    <div class="welcome-block">
+      <p id="wc-how">Tu joueras contre une IA. Suis le <em>guide contextuel</em> à droite — il t'explique chaque règle au moment où elle s'applique. Objectif : réunir 5 ingrédients sur ton mostrador pour cuisiner la paella.</p>
+    </div>
+
+    <div class="welcome-block" style="background:rgba(138,36,24,0.2); border:1px solid rgba(138,36,24,0.3);">
+      <p class="welcome-disclaimer" id="wc-disclaimer">Il s'agit d'un outil d'apprentissage personnel, non officiel et non commercial. Tous les droits sur le jeu original appartiennent à son auteur, <strong>Enric Aguilar</strong>. Si tu aimes le jeu, procure-toi le vrai !</p>
+    </div>
+
+    <button class="welcome-start" id="wc-start" onclick="startGame()">Commencer l'entraînement</button>
+  </div>
+</div>
+
 <div class="wrap">
   <h1>La Fallera Calavera</h1>
-  <p class="subtitle">Entraînement guidé contre une IA bienveillante — réunis 5 ingrédients pour cuisiner la paella</p>
+  <p class="subtitle">Entraînement guidé contre une IA bienveillante — réunis 5 ingrédients pour cuisiner la paella… sinon la Fallera Calavera te dévore !</p>
   <div class="game-layout">
     <div id="app" class="game-main"></div>
     <div class="log-sidebar">
@@ -406,6 +781,13 @@
             <option value="small" id="opt-small">Petite</option>
             <option value="medium" id="opt-medium" selected>Moyenne</option>
             <option value="large" id="opt-large">Grande</option>
+          </select>
+        </div>
+        <div class="ctrl-row">
+          <span class="ai-level-label" id="theme-label-el">Thème :</span>
+          <select id="theme-select" class="ai-lvl-btn" onchange="setTheme(this.value)">
+            <option value="dark" id="opt-dark" selected>🌙 Sombre</option>
+            <option value="light" id="opt-light">☀️ Clair</option>
           </select>
         </div>
       </div>
@@ -459,13 +841,13 @@ const TREASURES = [
 
 // --- CARTES DE BATAILLE (calavera rouge) — 33 cartes, 15 modèles ---
 const BATTLE_CARDS = [
-  { n: "Monleonetes", a: 1, d: 1, qty: 5, fr: "Travail d'équipe : ne peut pas combattre seule. Présente-la avec une autre carte face cachée pour donner +1 ATT à cette autre carte. Tu peux cumuler plusieurs Monleonetes. (Combo non simulée dans cette version : ici elle combat seule avec ses points de base.)", effectTag: "team" },
   { n: "Xicona de Xixona", a: 2, d: 3, qty: 3, fr: "Pas d'habileté.", es: "Sin habilidad.", val: "Sense habilitat." },
   { n: "El Capità Moro", a: 4, d: 1, qty: 2, fr: "Pas d'habileté.", es: "Sin habilidad.", val: "Sense habilitat." },
   { n: "Alcaldessa Perpètua", a: 3, d: 2, qty: 2, fr: "Perpétuité : si elle gagne la bataille, elle revient dans ta main.", es: "Perpetuidad : si gana la batalla, vuelve a tu mano.", val: "Perpetuïtat : si guanya la batalla, torna a la teua mà.", effectTag: "alcaldessa" },
   { n: "Guerrer de Moixent", a: 3, d: 3, qty: 2, fr: "Pas d'habileté.", es: "Sin habilidad.", val: "Sense habilitat." },
   { n: "La Dama d'Elx", a: 3, d: 4, qty: 2, fr: "Pas d'habileté.", es: "Sin habilidad.", val: "Sense habilitat." },
   { n: "Monleon", a: 2, d: 2, qty: 2, fr: "Leadership : avec des Monleonetes, ATT passe à 3. (Combo non simulée.)", es: "Liderazgo : con Monleonetes, ATQ sube a 3. (Combo no simulada.)", val: "Lideratge : amb Monleonetes, ATQ puja a 3. (Combo no simulada.)", effectTag: "monleonLeader" },
+  { n: "Monleonetes", a: 1, d: 1, qty: 5, fr: "Travail d'équipe : donne +1 ATT à une autre carte de bataille. (Combo non simulée.)", es: "Trabajo en equipo : da +1 ATQ a otra carta de batalla. (Combo no simulada.)", val: "Treball en equip : dona +1 ATQ a una altra carta de batalla. (Combo no simulada.)", effectTag: "team" },
   { n: "Cagalló", a: 0, d: 0, qty: 3, fr: "Pas d'habileté (la pire carte, à utiliser comme leurre).", es: "Sin habilidad (la peor carta, úsala como señuelo).", val: "Sense habilitat (la pitjor carta, usa-la com a esquer)." },
   { n: "Tombatossals", a: 6, d: 1, qty: 1, fr: "Pas d'habileté.", es: "Sin habilidad.", val: "Sense habilitat." },
   { n: "Jaume I", a: 3, d: 3, qty: 1, fr: "Pas d'habileté.", es: "Sin habilidad.", val: "Sense habilitat." },
@@ -474,7 +856,6 @@ const BATTLE_CARDS = [
   { n: "La Moma", a: null, d: null, qty: 2, fr: "Justa virtud : copie toujours les points de la carte adverse (égalité garantie, le défenseur gagne).", es: "Justa virtud : copia siempre los puntos de la carta adversaria (empate garantizado, gana el defensor).", val: "Justa virtut : copia sempre els punts de la carta adversària (empat garantit, guanya el defensor).", effectTag: "moma" },
   { n: "La Delicà de Gandia", a: 1, d: 2, qty: 3, fr: "Pas d'habileté.", es: "Sin habilidad.", val: "Sense habilitat." },
   { n: "El Tio Sangonera", a: 2, d: 1, qty: 2, fr: "Fartera : +1 ATT et +1 DEF par ingrédient sur ton mostrador.", es: "Fartera : +1 ATQ y +1 DEF por ingrediente en tu mostrador.", val: "Fartera : +1 ATQ i +1 DEF per ingredient al teu mostrador.", effectTag: "sangonera" },
-  { n: "Monleonetes", a: 1, d: 1, qty: 5, fr: "Travail d'équipe : donne +1 ATT à une autre carte de bataille. (Combo non simulée.)", es: "Trabajo en equipo : da +1 ATQ a otra carta de batalla. (Combo no simulada.)", val: "Treball en equip : dona +1 ATQ a una altra carta de batalla. (Combo no simulada.)", effectTag: "team" },
 ];
 
 // --- CARTES SPÉCIALES (calavera blanche, niveau n) — 40 cartes, 20 modèles ---
@@ -535,6 +916,8 @@ function drawCardFor(who) {
 function countIngredients(counter) { return counter.filter(c => c.ingredient).length; }
 function skullEmoji(type) { return type === "treasure" ? "💀" : type === "battle" ? "⚔" : "✨"; }
 function cardDesc(c) { return c[lang] || c["fr"] || ""; }
+function attStr(c) { return c.effectTag === "moma" ? "= ADV" : String(c.a ?? 0); }
+function defStr(c) { return c.effectTag === "moma" ? "= ADV" : String(c.d ?? 0); }
 function hasBoost(counter, tag) { return counter.some(c => c.effectTag === tag); }
 function sendToCemetery(card) { if (state.cemetery) state.cemetery.push(card); }
 
@@ -704,7 +1087,7 @@ let lang = "fr"; // "fr" | "es" | "val"
 const TRANSLATIONS = {
   // --- Interface principale ---
   title:          { fr: "La Fallera Calavera", es: "La Fallera Calavera", val: "La Fallera Calavera" },
-  subtitle:       { fr: "Entraînement guidé contre une IA bienveillante — réunis 5 ingrédients pour cuisiner la paella", es: "Entrenamiento guiado contra una IA amistosa — reúne 5 ingredientes para cocinar la paella", val: "Entrenament guiat contra una IA amigable — aconseguix 5 ingredients per a cuinar la paella" },
+  subtitle:       { fr: "Entraînement guidé contre une IA bienveillante — réunis 5 ingrédients pour cuisiner la paella… sinon la Fallera Calavera te dévore !", es: "Entrenamiento guiado contra una IA amistosa — reúne 5 ingredientes para cocinar la paella… ¡o la Fallera Calavera te devora!", val: "Entrenament guiat contra una IA amigable — aconseguix 5 ingredients per a cuinar la paella… o la Fallera Calavera et devora!" },
   turn:           { fr: "Tour", es: "Turno", val: "Torn" },
   ingScore:       { fr: "Toi : {MY}/5 ingrédients · Adversaire : {OPP}/5", es: "Tú : {MY}/5 ingredientes · Adversario : {OPP}/5", val: "Tu : {MY}/5 ingredients · Adversari : {OPP}/5" },
   cemetery:       { fr: "💀 Cimetière : {N} carte(s)", es: "💀 Cementerio : {N} carta(s)", val: "💀 Cementeri : {N} carta/cartes" },
@@ -724,6 +1107,25 @@ const TRANSLATIONS = {
   adversaireTour: { fr: "Tour de l'adversaire…", es: "Turno del adversario…", val: "Torn de l'adversari…" },
   continuer:      { fr: "Continuer", es: "Continuar", val: "Continuar" },
   rejouer:        { fr: "Rejouer", es: "Volver a jugar", val: "Tornar a jugar" },
+  // --- Page de garde ---
+  welcomeTitle:   { fr: "La Fallera Calavera", es: "La Fallera Calavera", val: "La Fallera Calavera" },
+  welcomeSubtitle:{ fr: "Simulateur d'entraînement", es: "Simulador de entrenamiento", val: "Simulador d'entrenament" },
+  welcomeGoal:    {
+    fr: "Ce simulateur a été créé pour apprendre les règles du jeu de cartes <em>La Fallera Calavera</em> avant d'y jouer en vrai avec des amis ou en famille.",
+    es: "Este simulador ha sido creado para aprender las reglas del juego de cartas <em>La Fallera Calavera</em> antes de jugarlo en persona con amigos o familiares.",
+    val: "Este simulador ha estat creat per a aprendre les regles del joc de cartes <em>La Fallera Calavera</em> abans de jugar-lo en persona amb amics o familiars."
+  },
+  welcomeDisclaimer: {
+    fr: "Il s'agit d'un outil d'apprentissage personnel, non officiel et non commercial. Tous les droits sur le jeu original appartiennent à son auteur, <strong>Enric Aguilar</strong>. Si tu aimes le jeu, procure-toi le vrai !",
+    es: "Esta es una herramienta de aprendizaje personal, no oficial y sin fines comerciales. Todos los derechos del juego original pertenecen a su autor, <strong>Enric Aguilar</strong>. Si te gusta el juego, ¡hazte con el original!",
+    val: "Esta és una ferramenta d'aprenentatge personal, no oficial i sense fins comercials. Tots els drets del joc original pertanyen al seu autor, <strong>Enric Aguilar</strong>. Si t'agrada el joc, fes-te amb l'original!"
+  },
+  welcomeHow: {
+    fr: "Tu joueras contre une IA. Suis le <em>guide contextuel</em> à droite — il t'explique chaque règle au moment où elle s'applique. Objectif : réunir 5 ingrédients sur ton mostrador pour cuisiner la paella… et fuir la Fallera Calavera avant qu'elle ne te dévore !",
+    es: "Jugarás contra una IA. Sigue la <em>guía contextual</em> a la derecha — te explica cada regla en el momento en que se aplica. Objetivo : reunir 5 ingredientes en tu mostrador para cocinar la paella… ¡y huir de la Fallera Calavera antes de que te devore!",
+    val: "Jugaràs contra una IA. Seguix la <em>guia contextual</em> a la dreta — t'explica cada regla en el moment en què s'aplica. Objectiu : reunir 5 ingredients al teu mostrador per a cuinar la paella… i fugir de la Fallera Calavera abans que et devore!"
+  },
+  welcomeStart:   { fr: "Commencer l'entraînement", es: "Comenzar el entrenamiento", val: "Començar l'entrenament" },
   winMsg:         { fr: "Paella servie ! Tu as gagné.", es: "¡Paella servida! Has ganado.", val: "Paella servida! Has guanyat." },
   loseMsg:        { fr: "L'adversaire a cuisiné la paella avant toi.", es: "El adversario cocinó la paella antes que tú.", val: "L'adversari ha cuinat la paella abans que tu." },
   turns:          { fr: "Partie terminée en {N} tours.", es: "Partida terminada en {N} turnos.", val: "Partida acabada en {N} torns." },
@@ -749,6 +1151,10 @@ const TRANSLATIONS = {
   // --- Sélecteurs ---
   levelLabel:     { fr: "Niveau IA :", es: "Nivel IA :", val: "Nivell IA :" },
   langLabel:      { fr: "Langue :", es: "Idioma :", val: "Idioma :" },
+  themeLabel:     { fr: "Thème :", es: "Tema :", val: "Tema :" },
+  fontLabel:      { fr: "Taille :", es: "Tamaño :", val: "Mida :" },
+  themeDark:      { fr: "🌙 Sombre", es: "🌙 Oscuro", val: "🌙 Fosc" },
+  themeLight:     { fr: "☀️ Clair", es: "☀️ Claro", val: "☀️ Clar" },
   lvlDebutante:   { fr: "Débutante", es: "Principiante", val: "Principiant" },
   lvlNormale:     { fr: "Normale", es: "Normal", val: "Normal" },
   lvlAvancee:     { fr: "Avancée", es: "Avanzada", val: "Avançada" },
@@ -813,6 +1219,15 @@ function setLang(l) {
   if (langLabel) langLabel.textContent = t("langLabel");
   const levelLabel = document.getElementById("level-label-el");
   if (levelLabel) levelLabel.textContent = t("levelLabel");
+  const themeLabel = document.getElementById("theme-label-el");
+  if (themeLabel) themeLabel.textContent = t("themeLabel");
+  const fontLabel = document.getElementById("font-label-el");
+  if (fontLabel) fontLabel.textContent = t("fontLabel");
+  // Traduire les options du sélecteur de thème
+  const optDark = document.getElementById("opt-dark");
+  if (optDark) optDark.textContent = t("themeDark");
+  const optLight = document.getElementById("opt-light");
+  if (optLight) optLight.textContent = t("themeLight");
   const optIds = {debutante:"opt-debutante",normale:"opt-normale",avancee:"opt-avancee",experte:"opt-experte"};
   Object.entries(optIds).forEach(([k,id]) => {
     const el = document.getElementById(id);
@@ -824,6 +1239,47 @@ function setLang(l) {
   const sub = document.querySelector(".subtitle");
   if (sub) sub.textContent = t("subtitle");
   render();
+}
+
+function setWelcomeLang(l) {
+  lang = l;
+  // Mise à jour des boutons de langue de la page de garde
+  ["fr","es","val"].forEach(code => {
+    const btn = document.getElementById("wlb-" + code);
+    if (btn) btn.className = "welcome-lang-btn" + (code === l ? " active" : "");
+  });
+  // Mise à jour des textes de la page de garde
+  const upd = (id, key) => {
+    const el = document.getElementById(id);
+    if (el) el.innerHTML = t(key);
+  };
+  upd("wc-title", "welcomeTitle");
+  upd("wc-subtitle", "welcomeSubtitle");
+  upd("wc-goal", "welcomeGoal");
+  upd("wc-how", "welcomeHow");
+  upd("wc-disclaimer", "welcomeDisclaimer");
+  upd("wc-start", "welcomeStart");
+}
+
+function startGame() {
+  const overlay = document.getElementById("welcome-overlay");
+  if (overlay) {
+    overlay.style.opacity = "0";
+    overlay.style.transition = "opacity 0.4s ease";
+    setTimeout(() => { overlay.style.display = "none"; }, 400);
+  }
+  // Synchronise la langue choisie sur la page de garde avec le reste du jeu
+  initControls();
+}
+
+function setTheme(theme) {
+  if (theme === "light") {
+    document.body.classList.add("theme-light");
+  } else {
+    document.body.classList.remove("theme-light");
+  }
+  const sel = document.getElementById("theme-select");
+  if (sel) sel.value = theme;
 }
 
 function setFontSize(size) {
@@ -1046,7 +1502,7 @@ function startBattle(idx) {
   } else if (card.effectTag === "monleonLeader") {
     note = ` Note d'entraînement : son bonus "leadership" (+1 ATT si accompagné de Monleonetes) nécessite une combinaison de cartes que cette version simplifiée ne simule pas encore — elle combat ici avec ses points de base (ATT ${card.a}).`;
   }
-  setGuide("Choisis ta cible", `Tu attaques avec "${card.n}" (ATT ${card.a ?? "?"}), posée face cachée. Choisis le trésor adverse que tu vises, puis confirme. L'adversaire pourra choisir de se défendre avec une carte de bataille, ou de ne pas se défendre du tout (l'attaquant gagne alors automatiquement).${note}`);
+  setGuide("Choisis ta cible", `Tu attaques avec "${card.n}" (ATT ${attStr(card)}), posée face cachée. Choisis le trésor adverse que tu vises, puis confirme. L'adversaire pourra choisir de se défendre avec une carte de bataille, ou de ne pas se défendre du tout (l'attaquant gagne alors automatiquement).${note}`);
   render();
 }
 
@@ -1060,7 +1516,7 @@ function confirmBattle() {
   state.phase = "battlePrep";
   const myCard = state.myHand[cardIdx];
   const target = state.oppCounter[targetIdx];
-  setGuide("Préparation de la bataille", `Carte posée face cachée : "${myCard.n}" (ATT ${myCard.a ?? "?"}) contre "${target.n}". Avant la révélation, tu peux engager une carte spéciale de combat si tu en as une en main (Masclet, Espill lluent, Aigua de València), ou lancer directement la résolution.`);
+  setGuide("Préparation de la bataille", `Carte posée face cachée : "${myCard.n}" (ATT ${attStr(myCard)}) contre "${target.n}". Avant la révélation, tu peux engager une carte spéciale de combat si tu en as une en main (Masclet, Espill lluent, Aigua de València), ou lancer directement la résolution.`);
   render();
 }
 
@@ -1842,7 +2298,9 @@ function renderCard(c, mini) {
   let inner = `<div class="pc-category">${catLabel}</div>`;
   inner += `<div class="pc-skull">${skullEmoji(c.type)}</div><div class="pc-name">${c.n}</div>`;
   if (c.type === "battle") {
-    inner += `<div class="pc-stats"><span class="a">ATT ${c.a ?? "?"}</span><span class="d">DEF ${c.d ?? "?"}</span></div>`;
+    const attDisplay = c.effectTag === "moma" ? "= ADV" : (c.a ?? "0");
+    const defDisplay = c.effectTag === "moma" ? "= ADV" : (c.d ?? "0");
+    inner += `<div class="pc-stats"><span class="a">ATT ${attDisplay}</span><span class="d">DEF ${defDisplay}</span></div>`;
     if (!mini) inner += `<div class="pc-foot">${cardDesc(c)}</div>`;
   } else {
     inner += `<div class="pc-foot">${mini ? t("catSpecialMini", {N: c.level ?? ""}) : cardDesc(c)}</div>`;
@@ -1995,7 +2453,7 @@ function render() {
   if (state.phase === "battleChoice" && state.pendingBattle) {
     const myCard = state.myHand[state.pendingBattle.cardIdx];
     html += `<div class="battle-box">
-      <p><strong>Bataille avec "${myCard.n}"</strong> (ATT ${myCard.a ?? "?"}) — choisis la cible :</p>
+      <p><strong>Bataille avec "${myCard.n}"</strong> (ATT ${attStr(myCard)}) — choisis la cible :</p>
       <div class="target-list">`;
     state.oppCounter.forEach((t, i) => {
       const sel = i === state.pendingBattle.targetIdx;
@@ -2017,7 +2475,7 @@ function render() {
       .filter(({ c }) => ["masclet", "espill", "aigua"].includes(c.effect));
 
     html += `<div class="battle-box">
-      <p><strong>Préparation</strong> : "${myCard.n}" (ATT ${myCard.a ?? "?"}) posée face cachée contre "${target.n}".</p>`;
+      <p><strong>Préparation</strong> : "${myCard.n}" (ATT ${attStr(myCard)}) posée face cachée contre "${target.n}".</p>`;
 
     if (prepSpecials.length > 0) {
       html += `<p style="font-size:0.8rem; opacity:0.85;">Tu peux engager une carte spéciale de combat avant la révélation :</p>
@@ -2045,7 +2503,7 @@ function render() {
     const defPrepSpecials = state.myHand.map((c, i) => ({ c, i })).filter(({ c }) => ["aigua", "espill", "protect"].includes(c.effect));
 
     html += `<div class="battle-box">
-      <p><strong>L'adversaire attaque !</strong> Il vise "${target.n}" avec ${hasSpy ? `"${atk.n}" (ATT ${atk.a ?? "?"}) — révélée grâce à ton Espionatge` : "une carte cachée"}.</p>`;
+      <p><strong>L'adversaire attaque !</strong> Il vise "${target.n}" avec ${hasSpy ? `"${atk.n}" (ATT ${attStr(atk)}) — révélée grâce à ton Espionatge` : "une carte cachée"}.</p>`;
 
     if (defPrepSpecials.length > 0) {
       html += `<p style="font-size:0.8rem; opacity:0.85;">Cartes spéciales de défense disponibles :</p>
@@ -2187,7 +2645,7 @@ function render() {
   html += `<div class="ce" style="grid-column:1/-1; color:#9a7ec0; font-family:'IM Fell English SC',serif; font-size:0.85rem; margin-top:8px;">${t("catPassive")}</div>`;
   passiveCards.forEach(c => { html += `<div class="ce"><b>${c.n}</b> — ${cardDesc(c)}</div>`; });
   html += `<div class="ce" style="grid-column:1/-1; color:#e8a888; font-family:'IM Fell English SC',serif; font-size:0.85rem; margin-top:8px;">${t("catBattle")}</div>`;
-  BATTLE_CARDS.forEach(c => { html += `<div class="ce"><b>${c.n}</b> (ATT ${c.a ?? "?"} / DEF ${c.d ?? "?"}) — ${cardDesc(c)}</div>`; });
+  BATTLE_CARDS.forEach(c => { html += `<div class="ce"><b>${c.n}</b> (ATT ${attStr(c)} / DEF ${defStr(c)}) — ${cardDesc(c)}</div>`; });
   html += `<div class="ce" style="grid-column:1/-1; color:#b8a8e0; font-family:'IM Fell English SC',serif; font-size:0.85rem; margin-top:8px;">${t("catSpecial")}</div>`;
   SPECIAL_CARDS.forEach(c => { html += `<div class="ce"><b>${c.n}</b> (niv.${c.level}) — ${cardDesc(c)}</div>`; });
   html += `</div></details>`;
