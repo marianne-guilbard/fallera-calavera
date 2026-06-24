@@ -273,12 +273,39 @@
   body.theme-light details.cardex > summary {
     color: #5a2808 !important;
   }
+  /* En-têtes de catégorie dans l'index — pas de fond */
+  body.theme-light .cardex-grid .ce-header {
+    background: none !important;
+    border: none !important;
+  }
+  /* Cellules de l'index par type — reprend les couleurs des cartes */
   body.theme-light .cardex-grid .ce {
-    background: linear-gradient(160deg, #e8d8a8, #e0ce98) !important;
-    border-color: #b08830 !important;
     color: #1a0e06 !important;
+    border-color: #a07828 !important;
   }
   body.theme-light .cardex-grid .ce b { color: #5a2808 !important; }
+  body.theme-light .cardex-grid .ce-ingredient {
+    background: linear-gradient(160deg, #e8c8a0, #d8b888) !important;
+    border-color: #a05818 !important;
+  }
+  body.theme-light .cardex-grid .ce-sell {
+    background: linear-gradient(160deg, #e8d898, #dece80) !important;
+    border-color: #a07818 !important;
+  }
+  body.theme-light .cardex-grid .ce-passive {
+    background: linear-gradient(160deg, #e0cfa8, #d4c090) !important;
+    border-color: #886828 !important;
+  }
+  body.theme-light .cardex-grid .ce-battle {
+    background: linear-gradient(160deg, #e8c8b8, #deb8a0) !important;
+    border-color: #a03018 !important;
+  }
+  body.theme-light .cardex-grid .ce-special {
+    background: linear-gradient(160deg, #c8d8e8, #b8c8d8) !important;
+    border-color: #386898 !important;
+  }
+  body.theme-light .cardex-grid .ce-special b { color: #103050 !important; }
+  body.theme-light .cardex-grid .ce-battle b  { color: #5a0808 !important; }
 
   /* ── Fin de partie ── */
   /* Victoire : or/ambre au lieu de vert */
@@ -388,6 +415,14 @@
     color: #fff; box-shadow: 0 0 8px rgba(200,160,50,0.3);
   }
   .almoina-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+
+  /* ── Animation de distribution des cartes ── */
+  @keyframes dealCard {
+    0%   { opacity: 0; transform: perspective(600px) rotateY(90deg) translateY(-30px) scale(0.85); }
+    60%  { opacity: 1; transform: perspective(600px) rotateY(-6deg) translateY(4px) scale(1.03); }
+    100% { opacity: 1; transform: perspective(600px) rotateY(0deg) translateY(0) scale(1); }
+  }
+  .card-deal-anim { animation: dealCard 0.42s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards; }
 
   .badge {
     font-family: 'IM Fell English SC', serif;
@@ -649,63 +684,69 @@
     position: fixed; inset: 0; z-index: 9999;
     background: rgba(20, 14, 8, 0.92);
     display: flex; align-items: center; justify-content: center;
-    padding: 1.5rem;
+    padding: 0.5rem;
     backdrop-filter: blur(3px);
   }
   .welcome-card {
-    max-width: 600px; width: 100%;
+    max-width: 540px; width: 100%;
     background: linear-gradient(160deg, #5a4a34, #3d3020);
     border: 2px solid var(--gold);
     border-radius: 10px;
-    padding: 2.5rem 2.5rem 2rem;
+    padding: 0.9rem 1.3rem 0.9rem;
     text-align: center;
-    box-shadow: 0 8px 40px rgba(0,0,0,0.6), inset 0 0 0 1px rgba(200,160,50,0.12);
+    box-shadow: 0 8px 40px rgba(0,0,0,0.6);
+    /* Tient dans l'écran ; scroll uniquement si écran très court */
+    max-height: 96vh;
+    overflow-y: auto;
+    box-sizing: border-box;
   }
-  .welcome-skull { font-size: 2.8rem; margin-bottom: 0.4rem; }
   .welcome-title {
     font-family: 'Pirata One', cursive;
-    font-size: 2.2rem; color: var(--flame-light);
-    text-shadow: 2px 2px 0 var(--char), 0 0 20px rgba(196,80,30,0.4);
+    font-size: 1.6rem; color: var(--flame-light);
+    text-shadow: 2px 2px 0 var(--char), 0 0 14px rgba(196,80,30,0.4);
     margin: 0 0 0.1rem;
   }
   .welcome-subtitle {
     font-family: 'IM Fell English SC', serif;
-    font-size: 0.95rem; color: var(--gold);
-    letter-spacing: 0.08em; margin: 0 0 1.5rem;
+    font-size: 0.75rem; color: var(--gold);
+    letter-spacing: 0.05em; margin: 0 0 0.55rem;
   }
   .welcome-block {
-    background: rgba(0,0,0,0.25);
-    border-radius: 6px; padding: 1rem 1.2rem;
-    margin-bottom: 1rem; text-align: center;
+    background: rgba(0,0,0,0.22);
+    border-radius: 5px; padding: 0.5rem 0.85rem;
+    margin-bottom: 0.45rem; text-align: center;
+  }
+  .welcome-disclaimer-block {
+    background: rgba(138,36,24,0.18);
+    border: 1px solid rgba(138,36,24,0.3);
   }
   .welcome-block p {
     font-family: 'IM Fell English SC', serif;
-    font-size: 1.05rem; color: var(--paper);
-    line-height: 1.7; margin: 0; text-align: center;
+    font-size: 0.85rem; color: var(--paper);
+    line-height: 1.45; margin: 0; text-align: center;
   }
   .welcome-disclaimer {
-    font-size: 0.88rem; color: var(--paper-darker);
-    font-style: italic; line-height: 1.6; margin: 0;
+    font-size: 0.72rem; color: var(--paper-darker);
+    font-style: italic; line-height: 1.4; margin: 0;
     text-align: center;
   }
   .welcome-start {
-    margin-top: 1.6rem; width: 100%; padding: 14px;
-    font-family: 'Pirata One', cursive; font-size: 1.2rem;
+    margin-top: 0.55rem; width: 100%; padding: 9px;
+    font-family: 'Pirata One', cursive; font-size: 1.05rem;
     color: var(--char); cursor: pointer;
     background: linear-gradient(160deg, var(--gold), #7a5a18);
     border: none; border-radius: 6px;
-    letter-spacing: 0.05em;
-    box-shadow: 0 3px 12px rgba(0,0,0,0.4);
+    letter-spacing: 0.04em;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.4);
     transition: all 0.2s;
   }
   .welcome-start:hover {
     background: linear-gradient(160deg, #d4a030, var(--gold));
     transform: translateY(-1px);
-    box-shadow: 0 5px 18px rgba(0,0,0,0.5);
   }
   .welcome-lang-bar {
-    display: flex; justify-content: center; gap: 8px;
-    margin-bottom: 1.5rem;
+    display: flex; justify-content: center; gap: 5px;
+    margin-bottom: 0.55rem;
   }
   .welcome-lang-btn {
     font-family: 'Special Elite', monospace; font-size: 0.82rem;
@@ -725,29 +766,28 @@
 <!-- ── Page de garde ── -->
 <div class="welcome-overlay" id="welcome-overlay">
   <div class="welcome-card">
-    <div class="welcome-skull">💀🥘💀</div>
     <h1 class="welcome-title" id="wc-title">La Fallera Calavera</h1>
-    <div class="welcome-subtitle" id="wc-subtitle">Simulateur d'entraînement</div>
+    <div class="welcome-subtitle" id="wc-subtitle">Simulador d'entrenament</div>
 
     <div class="welcome-lang-bar">
       <button class="welcome-lang-btn" id="wlb-fr" onclick="setWelcomeLang('fr')">🇫🇷 Français</button>
       <button class="welcome-lang-btn active" id="wlb-es" onclick="setWelcomeLang('es')">🇪🇸 Español</button>
-      <button class="welcome-lang-btn" id="wlb-val" onclick="setWelcomeLang('val')">🏳️ Valencià</button>
+      <button class="welcome-lang-btn" id="wlb-val" onclick="setWelcomeLang('val')"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 14" style="height:0.9em;vertical-align:middle;margin-right:2px"><rect width="20" height="14" fill="#ffd700"/><rect y="0" width="20" height="1.55" fill="#c60b1e"/><rect y="3.1" width="20" height="1.55" fill="#c60b1e"/><rect y="6.2" width="20" height="1.55" fill="#c60b1e"/><rect y="9.3" width="20" height="1.55" fill="#c60b1e"/><rect y="12.4" width="20" height="1.55" fill="#c60b1e"/><rect x="0" width="4" height="14" fill="#4a90d9"/></svg> Valencià</button>
     </div>
 
     <div class="welcome-block">
-      <p id="wc-goal">Ce simulateur a été créé pour apprendre les règles du jeu de cartes <em>La Fallera Calavera</em> avant d'y jouer en vrai avec des amis ou en famille.</p>
+      <p id="wc-goal">Este simulador ha sido creado para aprender las reglas del juego de cartas <em>La Fallera Calavera</em> antes de jugarlo en persona con amigos o familiares.</p>
     </div>
 
     <div class="welcome-block">
-      <p id="wc-how">Tu joueras contre une IA. Suis le <em>guide contextuel</em> à droite — il t'explique chaque règle au moment où elle s'applique. Objectif : réunir 5 ingrédients sur ton mostrador pour cuisiner la paella.</p>
+      <p id="wc-how">Jugarás contra una IA. Sigue la <em>guía contextual</em> a la derecha. Objetivo : reunir 5 ingredientes en tu mostrador para cocinar la paella… ¡y huir de la Fallera Calavera antes de que te devore!</p>
     </div>
 
-    <div class="welcome-block" style="background:rgba(138,36,24,0.2); border:1px solid rgba(138,36,24,0.3);">
-      <p class="welcome-disclaimer" id="wc-disclaimer">Il s'agit d'un outil d'apprentissage personnel, non officiel et non commercial. Tous les droits sur le jeu original appartiennent à son auteur, <strong>Enric Aguilar</strong>. Si tu aimes le jeu, procure-toi le vrai !</p>
+    <div class="welcome-block welcome-disclaimer-block">
+      <p class="welcome-disclaimer" id="wc-disclaimer">Esta es una herramienta de aprendizaje personal, no oficial y sin fines comerciales. Todos los derechos del juego original pertenecen a su autor, <strong>Enric Aguilar</strong>. Si te gusta el juego, ¡hazte con el original!</p>
     </div>
 
-    <button class="welcome-start" id="wc-start" onclick="startGame()">Commencer l'entraînement</button>
+    <button class="welcome-start" id="wc-start" onclick="startGame()">Comenzar el entrenamiento</button>
   </div>
 </div>
 
@@ -763,7 +803,7 @@
           <select id="lang-select" class="ai-lvl-btn" onchange="setLang(this.value)">
             <option value="fr">🇫🇷 Français</option>
             <option value="es" selected>🇪🇸 Español</option>
-            <option value="val">🏳️ Valencià</option>
+            <option value="val"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 14" style="height:0.9em;vertical-align:middle;margin-right:2px"><rect width="20" height="14" fill="#ffd700"/><rect y="0" width="20" height="1.55" fill="#c60b1e"/><rect y="3.1" width="20" height="1.55" fill="#c60b1e"/><rect y="6.2" width="20" height="1.55" fill="#c60b1e"/><rect y="9.3" width="20" height="1.55" fill="#c60b1e"/><rect y="12.4" width="20" height="1.55" fill="#c60b1e"/><rect x="0" width="4" height="14" fill="#4a90d9"/></svg> Valencià</option>
           </select>
         </div>
         <div class="ctrl-row">
@@ -1284,6 +1324,12 @@ const TRANSLATIONS = {
   tipRetard:           { fr: "L'adversaire a <b>{N}/5 ingrédients</b>, il se rapproche. Envisage une attaque ciblée sur ses ingrédients.", es: "El adversario tiene <b>{N}/5 ingredientes</b>, se acerca. Considera un ataque a sus ingredientes.", val: "L'adversari té <b>{N}/5 ingredients</b>, s'acosta. Considera un atac als seus ingredients." },
   tipNeutral:          { fr: "Pas de conseil tranché ce tour-ci : plusieurs options se valent. Équilibre entre jouer une carte utile maintenant et garder des options.", es: "Sin consejo claro este turno : varias opciones valen. Equilibra entre jugar ahora y guardar opciones.", val: "Sense consell clar este torn : diverses opcions valen. Equilibra entre jugar ara i guardar opcions." },
   logVersCimetiere:    { fr: "part au cimetière (les cartes spéciales jouées ne vont JAMAIS sur le mostrador).", es: "va al cementerio (las cartas especiales NUNCA van al mostrador).", val: "va al cementeri (les cartes especials MAI van al mostrador)." },
+  logSetupAdv:         { fr: "Mise en place : la donne de l'adversaire contenait {N} trésor(s) ({LIST}), posé(s) automatiquement sur son mostrador.", es: "Preparación : la mano del adversario contenía {N} tesoro(s) ({LIST}), colocado(s) automáticamente en su mostrador.", val: "Preparació : la mà de l'adversari contenia {N} tresor(s) ({LIST}), col·locat(s) automàticament al seu mostrador." },
+  logSetupAdvVide:     { fr: "Mise en place : la donne de l'adversaire ne contenait aucun trésor.", es: "Preparación : la mano del adversario no contenía ningún tesoro.", val: "Preparació : la mà de l'adversari no contenia cap tresor." },
+  gSetupDepart:        { fr: "Mise en place — c'est à toi de jouer", es: "Preparación — es tu turno", val: "Preparació — és el teu torn" },
+  gSetupDepartT:       { fr: "Voici tes 7 cartes de départ. Parmi elles, {N} sont des trésors (calavera jaune) — ils doivent OBLIGATOIREMENT être posés sur ton mostrador avant de commencer. Clique sur \"Poser sur le mostrador\" sous chaque trésor, un par un.", es: "Aquí tienes tus 7 cartas de inicio. Entre ellas, {N} son tesoros (calavera amarilla) — OBLIGATORIAMENTE deben colocarse en tu mostrador antes de empezar. Haz clic en \"Colocar en el mostrador\" bajo cada tesoro, uno a uno.", val: "Ací tens les teues 7 cartes d'inici. Entre elles, {N} són tresors (calavera groga) — OBLIGATÒRIAMENT han de col·locar-se al teu mostrador abans de començar. Fes clic en \"Posar al mostrador\" sota cada tresor, un per un." },
+  gSetupDepartSans:    { fr: "Mise en place", es: "Preparación", val: "Preparació" },
+  gSetupDepartSansT:   { fr: "Voici tes 7 cartes de départ. Aucune n'est un trésor, donc rien à poser. La partie peut commencer directement — c'est ton tour !", es: "Aquí tienes tus 7 cartas de inicio. Ninguna es un tesoro, así que no hay nada que colocar. ¡La partida puede empezar directamente — es tu turno!", val: "Ací tens les teues 7 cartes d'inici. Cap és un tresor, així que no cal col·locar res. La partida pot començar directament — és el teu torn!" },
 };
 
 // Raccourci de traduction
@@ -1429,8 +1475,8 @@ function newGame() {
     cemetery: [], // cartes défaussées/utilisées (bataille, spéciales, trésors vendus) — partagé entre les deux joueurs
     setupTreasureQueue: mySetupTreasureIdxs, // indices dans myHand restant à poser
     log: oppCounter.length > 0
-      ? [{ text: `Mise en place : la donne de l'adversaire contenait ${oppCounter.length} trésor(s) (${oppCounter.map(c=>c.n).join(", ")}), posé(s) automatiquement sur son mostrador.`, cls: "system" }]
-      : [{ text: `Mise en place : la donne de l'adversaire ne contenait aucun trésor.`, cls: "system" }],
+      ? [{ text: t("logSetupAdv", {N: oppCounter.length, LIST: oppCounter.map(c=>c.n).join(", ")}), cls: "system" }]
+      : [{ text: t("logSetupAdvVide"), cls: "system" }],
     pendingBattle: null,
     pendingDefense: null,
     pendingOppSpecial: null,
@@ -1440,18 +1486,45 @@ function newGame() {
     gameOver: null,
     guideMsg: mySetupTreasureIdxs.length > 0
       ? {
-          title: "Mise en place — c'est à toi de jouer",
-          text: `Voici tes 7 cartes de départ. Parmi elles, ${mySetupTreasureIdxs.length} sont des trésors (calavera jaune) — la règle dit qu'ils doivent OBLIGATOIREMENT être posés, visibles, sur ton mostrador avant que la partie ne commence. Clique sur le bouton "Poser sur le mostrador" de chaque trésor en bas, un par un. Ce n'est pas automatique : c'est toi qui dois le faire, pour bien intégrer cette règle.`
+          title: t("gSetupDepart"),
+          text: t("gSetupDepartT", {N: mySetupTreasureIdxs.length})
         }
       : {
-          title: "Mise en place",
-          text: "Voici tes 7 cartes de départ. Bonne nouvelle (ou pas) : aucune n'est un trésor, donc rien à poser pour l'instant. La partie peut commencer directement — c'est ton tour !"
+          title: t("gSetupDepartSans"),
+          text: t("gSetupDepartSansT")
         }
   };
+  state.isDealAnim = true;
   render();
+  // isDealAnim se remet à false après la fin de l'animation (1.5s délai + 7×140ms + durée anim)
+  setTimeout(() => { state.isDealAnim = false; }, 1500 + 7 * 140 + 500);
 }
 
 function setGuide(title, text) { state.guideMsg = { title, text }; }
+
+/* ── Animation de distribution des cartes ──────────────────────────────
+   triggerDealAnim() est appelée par render() quand isDealAnim=true.
+   Elle attend que le DOM soit peint (requestAnimationFrame × 2),
+   puis ajoute la classe CSS d'animation sur chaque carte une par une.
+   ─────────────────────────────────────────────────────────────────────── */
+function triggerDealAnim() {
+  setTimeout(() => {
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        const slots = document.querySelectorAll('[data-hand-idx]');
+        if (!slots.length) return;
+        slots.forEach(el => { el.style.opacity = '0'; el.classList.remove('card-deal-anim'); });
+        slots.forEach((el, i) => {
+          setTimeout(() => {
+            el.style.opacity = '';
+            void el.offsetWidth;
+            el.classList.add('card-deal-anim');
+          }, i * 140);
+        });
+      });
+    });
+  }, 1500); // 1.5s pour laisser le temps de voir l'interface
+}
 function logMsg(text, cls) { state.log.push({ text, cls }); }
 
 function checkWin() {
@@ -2402,6 +2475,11 @@ function renderCard(c, mini) {
 /* ============== RENDU PRINCIPAL ============== */
 function render() {
   const app = document.getElementById("app");
+  // Mettre à jour les titres statiques de la sidebar à chaque render (garantit la bonne langue)
+  const journalEl = document.getElementById("journal-title-el");
+  if (journalEl) journalEl.textContent = t("journalLabel");
+  const aidesEl = document.getElementById("aides-title-el");
+  if (aidesEl) aidesEl.textContent = t("aidesLabel");
 
   if (state.gameOver === "win" || state.gameOver === "lose") {
     const isWin = state.gameOver === "win";
@@ -2477,12 +2555,12 @@ function render() {
       <div>
         <div class="guide-title">${state.guideMsg.title}</div>
         <p>${state.guideMsg.text}</p>
-        <button class="toggle-guide" onclick="showGuide=false; render();">Masquer le guide</button>
+        <button class="toggle-guide" onclick="showGuide=false; render();">${t("hideGuide")}</button>
       </div>
     </div>`;
   } else {
     asideHtml += `<div class="actions-row" style="margin-bottom: 0.5rem;">
-      <button class="toggle-guide" style="font-size:0.75rem;" onclick="showGuide=true; render();">Réafficher le guide</button>
+      <button class="toggle-guide" style="font-size:0.75rem;" onclick="showGuide=true; render();">${t("showGuideBtn")}</button>
     </div>`;
   }
 
@@ -2502,14 +2580,14 @@ function render() {
   if (state.phase === "player") {
     const tips = buildStrategyTips();
     asideHtml += `<div class="strategy-box">
-      <div class="strategy-title">🧭 Conseil tactique pour ce tour</div>
+      <div class="strategy-title">${t("tactiqueTitle")}</div>
       <ul>${tips.map(t => `<li>${t}</li>`).join("")}</ul>
       <div class="hand-state">Main actuelle : ${state.myHand.length} carte(s) — ${state.myHand.filter(c=>c.type==='battle').length} bataille, ${state.myHand.filter(c=>c.type==='special').length} spéciale(s). (Les trésors ne passent jamais par la main : ils vont automatiquement sur ton mostrador.)</div>
     </div>`;
   } else if (state.phase === "setup") {
     asideHtml += `<div class="strategy-box">
-      <div class="strategy-title">🧭 Étape de mise en place</div>
-      <ul><li>Avant de pouvoir jouer ton premier tour, tu dois poser <b>tous les trésors</b> reçus dans ta donne de 7 cartes. Regarde ta main ci-dessous : chaque carte trésor a un bouton "Poser sur le mostrador (obligatoire)". Clique dessus une par une.</li></ul>
+      <div class="strategy-title">${t("setupTitle")}</div>
+      <ul><li>${t("setupText")}</li></ul>
     </div>`;
   }
 
@@ -2705,7 +2783,7 @@ function render() {
 
   html += `<div class="section-title">${t("myHand", {N: state.myHand.length})}</div><div class="hand-zone">`;
   state.myHand.forEach((c, i) => {
-    html += `<div class="card-slot">`;
+    html += `<div class="card-slot" data-hand-idx="${i}">`;
     html += renderCard(c, false);
     if (c.type === "treasure") {
       // Pendant la mise en place, ces trésors doivent être posés MANUELLEMENT par le joueur.
@@ -2728,20 +2806,26 @@ function render() {
   const passiveCards = TREASURES.filter(c => !c.ingredient && !c.sell);
 
   html += `<details class="cardex"><summary>${t("indexTitle")}</summary><div class="cardex-grid">`;
-  html += `<div class="ce" style="grid-column:1/-1; color:var(--sickly); font-family:'IM Fell English SC',serif; font-size:0.85rem; margin-top:4px;">${t("catIngredients")}</div>`;
-  ingredientCards.forEach(c => { html += `<div class="ce"><b>${c.n}</b> — ${cardDesc(c)}</div>`; });
-  html += `<div class="ce" style="grid-column:1/-1; color:#8a9aac; font-family:'IM Fell English SC',serif; font-size:0.85rem; margin-top:8px;">${t("catSell")}</div>`;
-  sellableCards.forEach(c => { html += `<div class="ce"><b>${c.n}</b> — ${cardDesc(c)}</div>`; });
-  html += `<div class="ce" style="grid-column:1/-1; color:#9a7ec0; font-family:'IM Fell English SC',serif; font-size:0.85rem; margin-top:8px;">${t("catPassive")}</div>`;
-  passiveCards.forEach(c => { html += `<div class="ce"><b>${c.n}</b> — ${cardDesc(c)}</div>`; });
-  html += `<div class="ce" style="grid-column:1/-1; color:#e8a888; font-family:'IM Fell English SC',serif; font-size:0.85rem; margin-top:8px;">${t("catBattle")}</div>`;
-  BATTLE_CARDS.forEach(c => { html += `<div class="ce"><b>${c.n}</b> (ATT ${attStr(c)} / DEF ${defStr(c)}) — ${cardDesc(c)}</div>`; });
-  html += `<div class="ce" style="grid-column:1/-1; color:#b8a8e0; font-family:'IM Fell English SC',serif; font-size:0.85rem; margin-top:8px;">${t("catSpecial")}</div>`;
-  SPECIAL_CARDS.forEach(c => { html += `<div class="ce"><b>${c.n}</b> (niv.${c.level}) — ${cardDesc(c)}</div>`; });
+  html += `<div class="ce ce-header" style="grid-column:1/-1; color:var(--sickly); font-family:'IM Fell English SC',serif; font-size:0.85rem; margin-top:4px;">${t("catIngredients")}</div>`;
+  ingredientCards.forEach(c => { html += `<div class="ce ce-ingredient"><b>${c.n}</b> — ${cardDesc(c)}</div>`; });
+  html += `<div class="ce ce-header" style="grid-column:1/-1; color:#8a9aac; font-family:'IM Fell English SC',serif; font-size:0.85rem; margin-top:8px;">${t("catSell")}</div>`;
+  sellableCards.forEach(c => { html += `<div class="ce ce-sell"><b>${c.n}</b> — ${cardDesc(c)}</div>`; });
+  html += `<div class="ce ce-header" style="grid-column:1/-1; color:#9a7ec0; font-family:'IM Fell English SC',serif; font-size:0.85rem; margin-top:8px;">${t("catPassive")}</div>`;
+  passiveCards.forEach(c => { html += `<div class="ce ce-passive"><b>${c.n}</b> — ${cardDesc(c)}</div>`; });
+  html += `<div class="ce ce-header" style="grid-column:1/-1; color:#e8a888; font-family:'IM Fell English SC',serif; font-size:0.85rem; margin-top:8px;">${t("catBattle")}</div>`;
+  BATTLE_CARDS.forEach(c => { html += `<div class="ce ce-battle"><b>${c.n}</b> (ATT ${attStr(c)} / DEF ${defStr(c)}) — ${cardDesc(c)}</div>`; });
+  html += `<div class="ce ce-header" style="grid-column:1/-1; color:#b8a8e0; font-family:'IM Fell English SC',serif; font-size:0.85rem; margin-top:8px;">${t("catSpecial")}</div>`;
+  SPECIAL_CARDS.forEach(c => { html += `<div class="ce ce-special"><b>${c.n}</b> (niv.${c.level}) — ${cardDesc(c)}</div>`; });
   html += `</div></details>`;
 
   app.innerHTML = html;
   document.getElementById("app-aside").innerHTML = asideHtml;
+
+  // Animation de distribution : masquer les cartes immédiatement, elles apparaîtront après délai
+  if (state.isDealAnim) {
+    document.querySelectorAll('[data-hand-idx]').forEach(el => { el.style.opacity = '0'; });
+    triggerDealAnim();
+  }
 
   let logHtml = "";
   state.log.forEach(m => { logHtml += `<p class="${m.cls}">${m.text}</p>`; });
@@ -2754,7 +2838,7 @@ function render() {
 }
 
 newGame();
-initControls();
+initControls(); // met à jour les textes statiques du DOM (Journal, Aides de jeu, etc.) dans la bonne langue
 </script>
 </body>
 </html>
