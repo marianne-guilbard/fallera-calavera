@@ -759,6 +759,15 @@
     border-color: var(--gold); background: #3a2e10; color: var(--paper);
   }
   .welcome-lang-btn:hover { border-color: var(--gold); color: var(--paper); }
+  .welcome-credit, .site-credit {
+    font-family: 'Special Elite', monospace; font-size: 0.72rem;
+    color: var(--paper-darker); text-align: center; margin: 0.6rem 0 0;
+  }
+  .welcome-credit a, .site-credit a { color: var(--gold); text-decoration: none; }
+  .welcome-credit a:hover, .site-credit a:hover { text-decoration: underline; }
+  .site-credit { margin: 1.5rem 0 0.5rem; opacity: 0.85; }
+  body.theme-light .site-credit { color: #4a2e10; }
+  body.theme-light .site-credit a { color: #8a3414; }
 </style>
 </head>
 <body>
@@ -788,6 +797,7 @@
     </div>
 
     <button class="welcome-start" id="wc-start" onclick="startGame()">Comenzar el entrenamiento</button>
+    <p class="welcome-credit" id="wc-credit">Simulador desarrollado por <strong>Marianne Guilbard</strong> · <a href="https://github.com/marianne-guilbard/fallera-calavera" target="_blank" rel="noopener">GitHub</a></p>
   </div>
 </div>
 
@@ -840,6 +850,7 @@
       <div id="app-aside" class="sidebar-aside-zone"></div>
     </div>
   </div>
+  <footer class="site-credit" id="site-credit">Simulador desarrollado por <strong>Marianne Guilbard</strong> · <a href="https://github.com/marianne-guilbard/fallera-calavera" target="_blank" rel="noopener">GitHub</a></footer>
 </div>
 
 
@@ -1165,6 +1176,11 @@ const TRANSLATIONS = {
     es: "Jugarás contra una IA. Sigue la <em>guía contextual</em> a la derecha — te explica cada regla en el momento en que se aplica. Objetivo : reunir 5 ingredientes en tu mostrador para cocinar la paella… ¡y huir de la Fallera Calavera antes de que te devore!",
     val: "Jugaràs contra una IA. Seguix la <em>guia contextual</em> a la dreta — t'explica cada regla en el moment en què s'aplica. Objectiu : reunir 5 ingredients al teu mostrador per a cuinar la paella… i fugir de la Fallera Calavera abans que et devore!"
   },
+  welcomeCredit:  {
+    fr: "Simulateur développé par <strong>Marianne Guilbard</strong> · <a href=\"https://github.com/marianne-guilbard/fallera-calavera\" target=\"_blank\" rel=\"noopener\">GitHub</a>",
+    es: "Simulador desarrollado por <strong>Marianne Guilbard</strong> · <a href=\"https://github.com/marianne-guilbard/fallera-calavera\" target=\"_blank\" rel=\"noopener\">GitHub</a>",
+    val: "Simulador desenvolupat per <strong>Marianne Guilbard</strong> · <a href=\"https://github.com/marianne-guilbard/fallera-calavera\" target=\"_blank\" rel=\"noopener\">GitHub</a>"
+  },
   welcomeStart:   { fr: "Commencer l'entraînement", es: "Comenzar el entrenamiento", val: "Començar l'entrenament" },
   winMsg:         { fr: "Paella servie ! Tu as gagné.", es: "¡Paella servida! Has ganado.", val: "Paella servida! Has guanyat." },
   loseMsg:        { fr: "L'adversaire a cuisiné la paella avant toi.", es: "El adversario cocinó la paella antes que tú.", val: "L'adversari ha cuinat la paella abans que tu." },
@@ -1401,6 +1417,8 @@ function setWelcomeLang(l) {
   upd("wc-how", "welcomeHow");
   upd("wc-disclaimer", "welcomeDisclaimer");
   upd("wc-start", "welcomeStart");
+  upd("wc-credit", "welcomeCredit");
+  upd("site-credit", "welcomeCredit");
 }
 
 function startGame() {
